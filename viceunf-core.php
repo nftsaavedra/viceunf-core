@@ -54,7 +54,9 @@ function viceunf_core_bootstrap(): void
         new \ViceUnf\Core\PostType\Slider(),
         new \ViceUnf\Core\PostType\Evento(),
         new \ViceUnf\Core\PostType\Socio(),
-        new \ViceUnf\Core\PostType\Reglamento()
+        new \ViceUnf\Core\PostType\Reglamento(),
+        new \ViceUnf\Core\PostType\Autoridad(),
+        new \ViceUnf\Core\PostType\Dependencia()
     ];
     $registrar = new \ViceUnf\Core\PostType\Registrar($cpts);
     add_action('init', [$registrar, 'register_all'], 0);
@@ -62,6 +64,13 @@ function viceunf_core_bootstrap(): void
     // 3. Registrar Hooks de Servicios
     $slider_service = new \ViceUnf\Core\Service\SliderService();
     $slider_service->register_hooks();
+
+    // 4. Registrar MetaBoxes de CPTs
+    $autoridad_metabox = new \ViceUnf\Core\MetaBox\AutoridadMetaBox();
+    $autoridad_metabox->register_hooks();
+
+    $dependencia_metabox = new \ViceUnf\Core\MetaBox\DependenciaMetaBox();
+    $dependencia_metabox->register_hooks();
 }
 
 viceunf_core_bootstrap();
