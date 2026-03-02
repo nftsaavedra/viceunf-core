@@ -71,6 +71,9 @@ function viceunf_core_bootstrap(): void
 
     $dependencia_metabox = new \ViceUnf\Core\MetaBox\DependenciaMetaBox();
     $dependencia_metabox->register_hooks();
+
+    $evento_metabox = new \ViceUnf\Core\MetaBox\EventoMetaBox();
+    $evento_metabox->register_hooks();
 }
 
 viceunf_core_bootstrap();
