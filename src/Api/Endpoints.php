@@ -30,12 +30,23 @@ class Endpoints
         foreach ($slider_fields as $field) {
             register_rest_field('slider', $field, [
                 'get_callback' => [$this, 'get_meta_value'],
+                'schema' => [
+                    'type'        => 'string',
+                    'description' => 'Meta data related to slider field: ' . $field,
+                    'context'     => ['view', 'edit'],
+                ],
             ]);
         }
 
         // Campo "calculado" para el enlace final del botón 1
         register_rest_field('slider', 'btn1_final_href', [
             'get_callback' => [$this, 'get_slider_btn1_final_href'],
+            'schema'       => [
+                'type'        => 'string',
+                'format'      => 'uri',
+                'description' => 'Calculated final URL for button 1.',
+                'context'     => ['view', 'edit'],
+            ],
         ]);
 
         // Exponemos la URL de la imagen destacada de forma explícita
@@ -46,6 +57,12 @@ class Endpoints
                 }
                 return false;
             },
+            'schema' => [
+                'type'        => ['string', 'boolean'],
+                'format'      => 'uri',
+                'description' => 'Featured image URL if exists, else false.',
+                'context'     => ['view', 'edit'],
+            ],
         ]);
     }
 
