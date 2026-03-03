@@ -1,0 +1,36 @@
+# Entornos Virtuales y Agentes AI
+.agent/
+.agents/
+.cursor/
+.cursorrules
+.gemini/
+
+# IDEs y Editores
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Archivos del Sistema Operativo
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+Desktop.ini
+
+# Logs y Archivos Temporales
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Dependencias (En caso aplique a futuro)
+vendor/
+node_modules/
