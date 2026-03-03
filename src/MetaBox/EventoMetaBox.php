@@ -97,23 +97,23 @@ class EventoMetaBox
     {
         wp_nonce_field('evento_save_meta_box_data', 'evento_meta_box_nonce');
 
-        // Compatibilidad: intentamos leer de la llave nueva, si no está, leemos de una genérica antigua (acf / temas antiguos suelen usar 'fecha_evento' o 'lugar_evento')
+        // Compatibilidad: intentamos leer de la llave nueva, si no está, leemos de la antigua generada por el tema ('_evento_address_key')
         $lugar = get_post_meta($post->ID, '_evento_lugar', true);
         if (empty($lugar)) {
-            $lugar = get_post_meta($post->ID, 'lugar_evento', true) ?: get_post_meta($post->ID, 'evento_lugar', true);
+            $lugar = get_post_meta($post->ID, '_evento_address_key', true);
         }
 
         $mapa_url = get_post_meta($post->ID, '_evento_mapa_url', true);
         $horarios = get_post_meta($post->ID, '_evento_horarios', true);
 
         // --- MIGRACION DE DATOS ANTIGUOS ---
-        // Si no existen horarios repetibles usando nuestro sistema, pero hay una fecha/hora antigua guardada en el post, 
-        // la extraemos y la convertimos 'on-the-fly' a nuestro formato de repetidor para que el usuario no pierda el dato antiguo
+        // Si no existen horarios repetibles usando nuestro sistema, pero hay una fecha/hora antigua guardada por el tema, 
+        // la extraemos y la convertimos 'on-the-fly' a nuestro formato de repetidor
         if (empty($horarios) || !is_array($horarios)) {
             $horarios = [];
-            $fecha_antigua = get_post_meta($post->ID, 'fecha_evento', true) ?: get_post_meta($post->ID, 'evento_fecha', true);
-            $hora_inicio_ant   = get_post_meta($post->ID, 'hora_inicio', true);
-            $hora_fin_ant      = get_post_meta($post->ID, 'hora_fin', true);
+            $fecha_antigua   = get_post_meta($post->ID, '_evento_date_key', true);
+            $hora_inicio_ant = get_post_meta($post->ID, '_evento_start_time_key', true);
+            $hora_fin_ant    = get_post_meta($post->ID, '_evento_end_time_key', true);
 
             // Si encontró al menos la fecha antigua, simula nuestro bloque
             if (!empty($fecha_antigua)) {
