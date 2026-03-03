@@ -45,9 +45,12 @@ spl_autoload_register(function (string $class): void {
  */
 function viceunf_core_bootstrap(): void
 {
-    // 1. Inicializar API Endpoints
+    // 1. Inicializar API Endpoints y Ajax
     $api_endpoints = new \ViceUnf\Core\Api\Endpoints();
     $api_endpoints->register_hooks();
+
+    $ajax_endpoints = new \ViceUnf\Core\Api\Ajax();
+    $ajax_endpoints->register_hooks();
 
     // 2. Registrar Custom Post Types inyectando las dependencias (DI)
     $cpts = [
