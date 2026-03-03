@@ -77,6 +77,15 @@ function viceunf_core_bootstrap(): void
 
     $evento_metabox = new \ViceUnf\Core\MetaBox\EventoMetaBox();
     $evento_metabox->register_hooks();
+
+    $slider_metabox = new \ViceUnf\Core\MetaBox\SliderMetaBox();
+    $slider_metabox->register_hooks();
+
+    $reglamento_metabox = new \ViceUnf\Core\MetaBox\ReglamentoMetaBox();
+    $reglamento_metabox->register_hooks();
+
+    $socio_metabox = new \ViceUnf\Core\MetaBox\SocioMetaBox();
+    $socio_metabox->register_hooks();
 }
 
 viceunf_core_bootstrap();
