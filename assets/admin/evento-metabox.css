@@ -1,0 +1,59 @@
+.evento-meta-row {
+  margin-bottom: 20px;
+}
+
+.evento-meta-row label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.evento-meta-row input[type="text"] {
+  width: 100%;
+  max-width: 500px;
+  padding: 5px;
+}
+
+.horario-row {
+  background: #f9f9f9;
+  border: 1px solid #ccd0d4;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.horario-cols {
+  display: flex;
+  gap: 15px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.horario-cols .col {
+  flex: 1;
+  min-width: 120px;
+}
+
+.horario-cols .col label {
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+
+.horario-cols .col input {
+  width: 100%;
+  padding: 4px;
+}
+
+.horario-cols .col-btn {
+  flex: 0 0 auto;
+}
+
+.remove-horario {
+  color: #b32d2e;
+  border-color: #b32d2e;
+}
+
+.remove-horario:hover {
+  background: #b32d2e;
+  color: #fff;
+}

@@ -10,37 +10,14 @@ namespace ViceUnf\Core\MetaBox;
  * Gestiona la interfaz y persistencia de campos personalizados para el CPT "autoridad".
  * Sigue SRP, encapsulando solo el registro, renderizado y guardado de los metadatos.
  */
-class AutoridadMetaBox
+class AutoridadMetaBox extends AbstractMetaBox
 {
-    /** @var string CPT al que aplica el metabox */
-    private string $post_type = 'autoridad';
-
-    /**
-     * Registra los hooks de WordPress para los meta boxes
-     */
-    public function register_hooks(): void
+    public function __construct()
     {
-        add_action('add_meta_boxes', [$this, 'add_meta_box']);
-        add_action('save_post', [$this, 'save_meta_box_data']);
-    }
-
-    /**
-     * Agrega el meta box en la pantalla de edición del CPT "autoridad"
-     */
-    public function add_meta_box(string $post_type): void
-    {
-        if ($post_type !== $this->post_type) {
-            return;
-        }
-
-        add_meta_box(
-            'autoridad_datos_personales_metabox',         // ID del metabox
-            __('Datos Profesionales e Institucionales', 'viceunf-core'), // Título
-            [$this, 'render_meta_box_content'],           // Callback de renderizado
-            $this->post_type,                             // Pantalla/CPT
-            'normal',                                     // Contexto
-            'high'                                        // Prioridad
-        );
+        $this->post_type      = 'autoridad';
+        $this->meta_box_id    = 'autoridad_datos_personales_metabox';
+        $this->meta_box_title = __('Datos Profesionales e Institucionales', 'viceunf-core');
+        parent::__construct();
     }
 
     /**
@@ -48,10 +25,8 @@ class AutoridadMetaBox
      *
      * @param \WP_Post $post Objeto del post actual
      */
-    public function render_meta_box_content(\WP_Post $post): void
+    protected function render_fields(\WP_Post $post): void
     {
-        // 1. Agregar Nonce para validación de seguridad (OWASP CSRF protection)
-        wp_nonce_field('autoridad_save_meta_box_data', 'autoridad_meta_box_nonce');
 
         // 2. Obtener los valores actuales (si existen)
         $grado_academico = get_post_meta($post->ID, '_autoridad_grado', true);
@@ -128,54 +103,31 @@ class AutoridadMetaBox
     }
 
     /**
-     * Sanitiza y guarda los datos de los campos personalizados.
-     *
-     * @param int $post_id ID del post que se está guardando.
+     * Sanitiza y guarda los datos específicos del dominio.
      */
-    public function save_meta_box_data(int $post_id): void
+    protected function save_fields(int $post_id, array $post_data): void
     {
-        // 1. Verificación Nonce (Previene ataques CSRF)
-        if (! isset($_POST['autoridad_meta_box_nonce']) || ! wp_verify_nonce($_POST['autoridad_meta_box_nonce'], 'autoridad_save_meta_box_data')) {
-            return;
-        }
-
-        // 2. Verificar Autoguardado
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-            return;
-        }
-
-        // 3. Verificar Permisos del Usuario (Rol y Capabilities)
-        if (isset($_POST['post_type']) && 'page' === $_POST['post_type']) {
-            if (! current_user_can('edit_page', $post_id)) {
-                return;
-            }
-        } else {
-            if (! current_user_can('edit_post', $post_id)) {
-                return;
-            }
-        }
-
         // 4. Sanitizar y persistir: Grado Académico
-        if (isset($_POST['autoridad_grado'])) {
-            $grado_saneado = sanitize_text_field($_POST['autoridad_grado']);
+        if (isset($post_data['autoridad_grado'])) {
+            $grado_saneado = sanitize_text_field($post_data['autoridad_grado']);
             update_post_meta($post_id, '_autoridad_grado', $grado_saneado);
         }
 
         // 5. Sanitizar y persistir: ORCID
-        if (isset($_POST['autoridad_orcid'])) {
-            $orcid_saneado = esc_url_raw($_POST['autoridad_orcid']);
+        if (isset($post_data['autoridad_orcid'])) {
+            $orcid_saneado = esc_url_raw($post_data['autoridad_orcid']);
             update_post_meta($post_id, '_autoridad_orcid', $orcid_saneado);
         }
 
         // 6. Sanitizar y persistir: CTI Vitae
-        if (isset($_POST['autoridad_cti_vitae'])) {
-            $ctivit_saneado = esc_url_raw($_POST['autoridad_cti_vitae']);
+        if (isset($post_data['autoridad_cti_vitae'])) {
+            $ctivit_saneado = esc_url_raw($post_data['autoridad_cti_vitae']);
             update_post_meta($post_id, '_autoridad_cti_vitae', $ctivit_saneado);
         }
 
         // 7. Sanitizar y persistir: Correo Institucional
-        if (isset($_POST['autoridad_correo'])) {
-            $correo_saneado = sanitize_email($_POST['autoridad_correo']);
+        if (isset($post_data['autoridad_correo'])) {
+            $correo_saneado = sanitize_email($post_data['autoridad_correo']);
             update_post_meta($post_id, '_autoridad_correo', $correo_saneado);
         }
     }

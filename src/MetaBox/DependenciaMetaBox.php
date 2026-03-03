@@ -10,20 +10,16 @@ namespace ViceUnf\Core\MetaBox;
  * Gestiona el enlace relacional entre la "Dependencia" y la "Autoridad" designada
  * para el cargo, permitiendo asignar una resolución.
  */
-class DependenciaMetaBox
+class DependenciaMetaBox extends AbstractMetaBox
 {
-    private string $post_type = 'dependencia';
-
-    public function register_hooks(): void
+    public function __construct()
     {
-        add_action('add_meta_boxes', [$this, 'add_meta_box']);
-        add_action('save_post', [$this, 'save_meta_box_data']);
-        add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_scripts']);
+        $this->post_type      = 'dependencia';
+        $this->meta_box_id    = 'dependencia_jefatura_metabox';
+        $this->meta_box_title = __('Jefatura y Designación', 'viceunf-core');
+        parent::__construct();
     }
 
-    /**
-     * Encola los scripts y estilos de Select2 (CDN) solo en la pantalla de edición de Dependencias
-     */
     public function enqueue_admin_scripts(string $hook): void
     {
         global $post;
@@ -46,25 +42,8 @@ class DependenciaMetaBox
         }
     }
 
-    public function add_meta_box(string $post_type): void
+    protected function render_fields(\WP_Post $post): void
     {
-        if ($post_type !== $this->post_type) {
-            return;
-        }
-
-        add_meta_box(
-            'dependencia_jefatura_metabox',
-            __('Jefatura y Designación', 'viceunf-core'),
-            [$this, 'render_meta_box_content'],
-            $this->post_type,
-            'normal',
-            'high'
-        );
-    }
-
-    public function render_meta_box_content(\WP_Post $post): void
-    {
-        wp_nonce_field('dependencia_save_meta_box_data', 'dependencia_meta_box_nonce');
 
         $jefe_asignado_id = get_post_meta($post->ID, '_dependencia_autoridad_id', true);
         $resolucion       = get_post_meta($post->ID, '_dependencia_resolucion', true);
@@ -131,23 +110,11 @@ class DependenciaMetaBox
 <?php
     }
 
-    public function save_meta_box_data(int $post_id): void
+    protected function save_fields(int $post_id, array $post_data): void
     {
-        if (! isset($_POST['dependencia_meta_box_nonce']) || ! wp_verify_nonce($_POST['dependencia_meta_box_nonce'], 'dependencia_save_meta_box_data')) {
-            return;
-        }
-
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-            return;
-        }
-
-        if (! current_user_can('edit_page', $post_id)) {
-            return;
-        }
-
         // Persistir Autoridad Asignada (Validar que sea un ID numérico)
-        if (isset($_POST['dependencia_autoridad_id'])) {
-            $autoridad_id = sanitize_text_field($_POST['dependencia_autoridad_id']);
+        if (isset($post_data['dependencia_autoridad_id'])) {
+            $autoridad_id = sanitize_text_field($post_data['dependencia_autoridad_id']);
             if (empty($autoridad_id)) {
                 delete_post_meta($post_id, '_dependencia_autoridad_id');
             } else {
@@ -156,8 +123,8 @@ class DependenciaMetaBox
         }
 
         // Persistir Resolución
-        if (isset($_POST['dependencia_resolucion'])) {
-            $resolucion_saneada = sanitize_text_field($_POST['dependencia_resolucion']);
+        if (isset($post_data['dependencia_resolucion'])) {
+            $resolucion_saneada = sanitize_text_field($post_data['dependencia_resolucion']);
             update_post_meta($post_id, '_dependencia_resolucion', $resolucion_saneada);
         }
     }
