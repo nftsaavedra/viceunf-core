@@ -50,6 +50,7 @@ class Socio implements PostTypeInterface
             'has_archive'         => false,
             'exclude_from_search' => true,
             'publicly_queryable'  => false,
+            'show_in_rest'        => true,
         );
     }
 }
