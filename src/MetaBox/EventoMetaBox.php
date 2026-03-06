@@ -61,60 +61,63 @@ class EventoMetaBox extends AbstractMetaBox
             }
         }
 ?>
-
-
-        <!-- Ubicación General -->
-        <div class="evento-meta-row" style="display:flex; gap:20px;">
-            <div style="flex:1;">
-                <label for="evento_lugar"><?php _e('Lugar/Sede Principal:', 'viceunf-core'); ?></label>
-                <input type="text" id="evento_lugar" name="evento_lugar" value="<?php echo esc_attr($lugar); ?>" placeholder="Ej: Auditorio Central UNF" />
+        <div class="viceunf-metabox-wrapper">
+            <!-- Ubicación General -->
+            <div class="viceunf-metabox-section">
+                <h4 class="viceunf-metabox-subtitle"><?php _e('Ubicación General', 'viceunf-core'); ?></h4>
+                <div style="display:flex; gap:20px; flex-wrap: wrap;">
+                    <div class="viceunf-metabox-field" style="flex:1;">
+                        <label for="evento_lugar" class="viceunf-metabox-label"><?php _e('Lugar/Sede Principal:', 'viceunf-core'); ?></label>
+                        <input type="text" id="evento_lugar" name="evento_lugar" value="<?php echo esc_attr($lugar); ?>" placeholder="Ej: Auditorio Central UNF" class="viceunf-metabox-input dt-w-100" />
+                    </div>
+                    <div class="viceunf-metabox-field" style="flex:1;">
+                        <label for="evento_mapa_url" class="viceunf-metabox-label"><?php _e('URL Ubicación en Google Maps:', 'viceunf-core'); ?></label>
+                        <input type="url" id="evento_mapa_url" name="evento_mapa_url" value="<?php echo esc_url($mapa_url); ?>" placeholder="https://maps.google.com/..." class="viceunf-metabox-input dt-w-100" />
+                    </div>
+                </div>
             </div>
-            <div style="flex:1;">
-                <label for="evento_mapa_url"><?php _e('URL Ubicación en Google Maps:', 'viceunf-core'); ?></label>
-                <input type="url" id="evento_mapa_url" name="evento_mapa_url" value="<?php echo esc_url($mapa_url); ?>" placeholder="https://maps.google.com/..." />
-            </div>
-        </div>
 
-        <hr style="margin: 20px 0;">
+            <!-- Generador de Horarios -->
+            <div class="viceunf-metabox-section">
+                <h4 class="viceunf-metabox-subtitle"><?php _e('Jornadas y Horarios del Evento', 'viceunf-core'); ?></h4>
+                <p class="description viceunf-metabox-desc"><?php _e('Puede agregar múltiples fechas y horas para este evento (ej. ponencias de la mañana, ponencias de la tarde).', 'viceunf-core'); ?></p>
 
-        <!-- Generador de Horarios -->
-        <div class="evento-meta-row">
-            <label><?php _e('Jornadas y Horarios del Evento:', 'viceunf-core'); ?></label>
-            <p class="description"><?php _e('Puede agregar múltiples fechas y horas para este evento (ej. ponencias de la mañana, ponencias de la tarde).', 'viceunf-core'); ?></p>
-
-            <div id="evento_horarios_container">
-                <?php if (!empty($horarios)) : ?>
-                    <?php foreach ($horarios as $index => $horario) : ?>
-                        <div class="horario-row">
-                            <div class="horario-cols">
-                                <div class="col">
-                                    <label>Etiqueta / Turno:</label>
-                                    <input type="text" name="evento_horarios[<?php echo $index; ?>][etiqueta]" value="<?php echo esc_attr($horario['etiqueta'] ?? ''); ?>" />
-                                </div>
-                                <div class="col">
-                                    <label>Fecha:</label>
-                                    <input type="date" name="evento_horarios[<?php echo $index; ?>][fecha]" value="<?php echo esc_attr($horario['fecha'] ?? ''); ?>" required />
-                                </div>
-                                <div class="col">
-                                    <label>Hora Inicio:</label>
-                                    <input type="time" name="evento_horarios[<?php echo $index; ?>][inicio]" value="<?php echo esc_attr($horario['inicio'] ?? ''); ?>" required />
-                                </div>
-                                <div class="col">
-                                    <label>Hora Fin:</label>
-                                    <input type="time" name="evento_horarios[<?php echo $index; ?>][fin]" value="<?php echo esc_attr($horario['fin'] ?? ''); ?>" required />
-                                </div>
-                                <div class="col col-btn">
-                                    <button type="button" class="button remove-horario">Eliminar</button>
+                <div id="evento_horarios_container" class="viceunf-metabox-repeater">
+                    <?php if (!empty($horarios)) : ?>
+                        <?php foreach ($horarios as $index => $horario) : ?>
+                            <div class="horario-row viceunf-metabox-repeater-row">
+                                <div class="horario-cols" style="display:flex; gap:15px; align-items:flex-end;">
+                                    <div class="col" style="flex:1.5;">
+                                        <label class="viceunf-metabox-label">Etiqueta / Turno:</label>
+                                        <input type="text" name="evento_horarios[<?php echo $index; ?>][etiqueta]" value="<?php echo esc_attr($horario['etiqueta'] ?? ''); ?>" class="viceunf-metabox-input dt-w-100" placeholder="Ej: Turno Mañana" />
+                                    </div>
+                                    <div class="col" style="flex:1;">
+                                        <label class="viceunf-metabox-label">Fecha:</label>
+                                        <input type="date" name="evento_horarios[<?php echo $index; ?>][fecha]" value="<?php echo esc_attr($horario['fecha'] ?? ''); ?>" required class="viceunf-metabox-input dt-w-100" />
+                                    </div>
+                                    <div class="col" style="flex:1;">
+                                        <label class="viceunf-metabox-label">Hora Inicio:</label>
+                                        <input type="time" name="evento_horarios[<?php echo $index; ?>][inicio]" value="<?php echo esc_attr($horario['inicio'] ?? ''); ?>" required class="viceunf-metabox-input dt-w-100" />
+                                    </div>
+                                    <div class="col" style="flex:1;">
+                                        <label class="viceunf-metabox-label">Hora Fin:</label>
+                                        <input type="time" name="evento_horarios[<?php echo $index; ?>][fin]" value="<?php echo esc_attr($horario['fin'] ?? ''); ?>" required class="viceunf-metabox-input dt-w-100" />
+                                    </div>
+                                    <div class="col col-btn">
+                                        <button type="button" class="button remove-horario" style="color:#b32d2e; border-color:#b32d2e;">Eliminar</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
 
-            <button type="button" id="add_horario_btn" class="button button-primary" style="margin-top: 10px;">
-                <?php _e('+ Añadir Nuevo Horario', 'viceunf-core'); ?>
-            </button>
+                <div style="margin-top: 15px;">
+                    <button type="button" id="add_horario_btn" class="button button-primary">
+                        <?php _e('+ Añadir Nuevo Horario', 'viceunf-core'); ?>
+                    </button>
+                </div>
+            </div>
         </div>
 <?php
     }

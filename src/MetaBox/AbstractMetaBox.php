@@ -97,7 +97,11 @@ abstract class AbstractMetaBox
     public function save_meta_box_data(int $post_id): void
     {
         // 1. Verificación contra Ataques CSRF
-        if (! isset($_POST[$this->nonce_name]) || ! wp_verify_nonce($_POST[$this->nonce_name], $this->nonce_action)) {
+        $nonce = isset($_POST[$this->nonce_name])
+            ? sanitize_text_field(wp_unslash($_POST[$this->nonce_name]))
+            : '';
+
+        if (! wp_verify_nonce($nonce, $this->nonce_action)) {
             return;
         }
 
@@ -112,7 +116,7 @@ abstract class AbstractMetaBox
         }
 
         // Una vez saneadas las variables de entorno básico, delegamos la persistencia al hijo
-        $this->save_fields($post_id, $_POST);
+        $this->save_fields($post_id, wp_unslash($_POST));
     }
 
     /**

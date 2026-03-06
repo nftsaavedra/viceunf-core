@@ -10,6 +10,8 @@ class Endpoints
     public function register_hooks(): void
     {
         add_action('rest_api_init', [$this, 'register_slider_fields']);
+        add_action('rest_api_init', [$this, 'register_dependencia_fields']);
+        add_action('rest_api_init', [$this, 'register_autoridad_fields']);
     }
 
     public function register_slider_fields(): void
@@ -84,5 +86,73 @@ class Endpoints
             return get_permalink((int) $link_content_id) ?: '';
         }
         return '';
+    }
+
+    public function register_dependencia_fields(): void
+    {
+        $string_fields = [
+            '_dependencia_resolucion',
+            '_dependencia_resolucion_source_type',
+            '_dependencia_resolucion_file_id',
+            '_dependencia_resolucion_external_url',
+            '_dependencia_siglas',
+            '_dependencia_correo',
+            '_dependencia_telefono',
+            '_dependencia_ubicacion',
+            '_dependencia_horario',
+        ];
+
+        foreach ($string_fields as $meta_key) {
+            register_post_meta('dependencia', $meta_key, [
+                'show_in_rest'      => true,
+                'single'            => true,
+                'type'              => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback'     => function () {
+                    return current_user_can('edit_posts');
+                },
+            ]);
+        }
+
+        register_post_meta('dependencia', '_dependencia_autoridad_id', [
+            'show_in_rest'      => true,
+            'single'            => true,
+            'type'              => 'integer',
+            'sanitize_callback' => 'absint',
+            'auth_callback'     => function () {
+                return current_user_can('edit_posts');
+            },
+        ]);
+    }
+
+    public function register_autoridad_fields(): void
+    {
+        $text_fields = ['_autoridad_grado', '_autoridad_correo'];
+
+        foreach ($text_fields as $meta_key) {
+            register_post_meta('autoridad', $meta_key, [
+                'show_in_rest'      => true,
+                'single'            => true,
+                'type'              => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback'     => function () {
+                    return current_user_can('edit_posts');
+                },
+            ]);
+        }
+
+        $url_fields = ['_autoridad_orcid', '_autoridad_cti_vitae'];
+
+        foreach ($url_fields as $meta_key) {
+            register_post_meta('autoridad', $meta_key, [
+                'show_in_rest'      => true,
+                'single'            => true,
+                'type'              => 'string',
+                'sanitize_callback' => 'esc_url_raw',
+                'auth_callback'     => function () {
+                    return current_user_can('edit_posts');
+                },
+            ]);
+        }
     }
 }

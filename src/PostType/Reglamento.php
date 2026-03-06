@@ -37,7 +37,7 @@ class Reglamento implements PostTypeInterface, HasTaxonomiesInterface
             'label'               => __('Reglamento', 'viceunf-core'),
             'description'         => __('Documentos normativos y reglamentos', 'viceunf-core'),
             'labels'              => $labels,
-            'supports'            => array('title', 'editor', 'revisions'),
+            'supports'            => array('title', 'revisions'),
             'public'              => true,
             'show_ui'             => true,
             'show_in_menu'        => true,

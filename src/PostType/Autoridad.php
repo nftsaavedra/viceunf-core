@@ -40,7 +40,7 @@ class Autoridad implements PostTypeInterface
             'label'               => __('Autoridad', 'viceunf-core'),
             'description'         => __('Autoridades y Personal Directivo Universitario', 'viceunf-core'),
             'labels'              => $labels,
-            'supports'            => array('title', 'editor', 'thumbnail'),
+            'supports'            => array('title', 'thumbnail', 'custom-fields'),
             'public'              => false, // Para no generar single.php directo nativo si se usará via bloque.
             'show_ui'             => true,
             'show_in_menu'        => true,

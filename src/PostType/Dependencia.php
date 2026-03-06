@@ -39,7 +39,7 @@ class Dependencia implements PostTypeInterface
             'label'               => __('Dependencia', 'viceunf-core'),
             'description'         => __('Direcciones, Unidades y Oficinas Universitarias', 'viceunf-core'),
             'labels'              => $labels,
-            'supports'            => array('title', 'editor', 'thumbnail', 'page-attributes'), // page-attributes es crítico para jerarquía
+            'supports'            => array('title', 'thumbnail', 'page-attributes', 'custom-fields'),
             'hierarchical'        => true, // Permitir arbol (Padre - Hijo) -> Nivel 0 -> 1 -> 2
             'public'              => false, // Se consumirá vía Bloques y API REST
             'show_ui'             => true,

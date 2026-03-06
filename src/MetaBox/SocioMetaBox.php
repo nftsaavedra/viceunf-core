@@ -18,13 +18,25 @@ class SocioMetaBox extends AbstractMetaBox
         parent::__construct();
     }
 
+    public function enqueue_admin_scripts(string $hook): void
+    {
+        global $post;
+        if (($hook === 'post-new.php' || $hook === 'post.php') && $post && $post->post_type === $this->post_type) {
+            wp_enqueue_style('viceunf-metabox-common-css', VICEUNF_CORE_URL . 'assets/admin/metabox-common.css', [], VICEUNF_CORE_VERSION);
+        }
+    }
+
     protected function render_fields(\WP_Post $post): void
     {
         $socio_url = get_post_meta($post->ID, '_socio_url_key', true);
 ?>
-        <div class="socio-field" style="margin-bottom: 1em;">
-            <label for="socio_url"><strong><?php _e('Enlace Web del Socio (Opcional)', 'viceunf-core'); ?></strong></label><br>
-            <input type="url" id="socio_url" name="socio_url" value="<?php echo esc_url((string)$socio_url); ?>" class="large-text" placeholder="https://..." />
+        <div class="viceunf-metabox-wrapper">
+            <div class="viceunf-metabox-section">
+                <div class="viceunf-metabox-field">
+                    <label for="socio_url" class="viceunf-metabox-label"><?php _e('Enlace Web del Socio (Opcional)', 'viceunf-core'); ?></label>
+                    <input type="url" id="socio_url" name="socio_url" value="<?php echo esc_url((string)$socio_url); ?>" class="viceunf-metabox-input dt-w-100" placeholder="https://..." />
+                </div>
+            </div>
         </div>
 <?php
     }

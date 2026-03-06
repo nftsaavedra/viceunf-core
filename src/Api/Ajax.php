@@ -10,6 +10,7 @@ class Ajax
     {
         add_action('wp_ajax_viceunf_search_content', [$this, 'search_content_handler']);
         add_action('wp_ajax_viceunf_search_pages_only', [$this, 'search_pages_handler']);
+        add_action('wp_ajax_viceunf_search_autoridades', [$this, 'search_autoridades_handler']);
     }
 
     /**
@@ -29,13 +30,21 @@ class Ajax
     }
 
     /**
+     * Búsqueda de Autoridades únicamente
+     */
+    public function search_autoridades_handler(): void
+    {
+        $this->ajax_search_posts(['autoridad']);
+    }
+
+    /**
      * Lógica DRY reutilizada por los endpoints de búsqueda.
      *
      * @param array<string> $post_types Tipo(s) de post a buscar.
      */
     private function ajax_search_posts(array $post_types): void
     {
-        check_ajax_referer('slider_metabox_nonce_action', 'nonce');
+        check_ajax_referer('viceunf_ajax_nonce_action', 'nonce');
 
         $search_term = isset($_POST['search']) ? sanitize_text_field($_POST['search']) : '';
 
