@@ -8,6 +8,51 @@ class EventosService
 {
 
     /**
+     * Invalida todas las caches relacionadas con eventos
+     * Se debe llamar cuando se crea, actualiza o elimina un evento
+     */
+    public function clear_eventos_cache(): void
+    {
+        // Limpiar caches para diferentes límites comunes
+        $common_limits = [2, 3, 4, 6, 8, 10];
+        
+        foreach ($common_limits as $limit) {
+            delete_transient("viceunf_eventos_home_{$limit}");
+        }
+    }
+
+    /**
+     * Registra los hooks para invalidar cache automáticamente
+     */
+    public function register_hooks(): void
+    {
+        // Invalidar cache cuando se guarda, actualiza o elimina un evento
+        add_action('save_post_evento', [$this, 'clear_eventos_cache']);
+        add_action('wp_trash_post', [$this, 'handle_event_deletion']);
+        add_action('untrash_post', [$this, 'handle_event_restoration']);
+    }
+
+    /**
+     * Maneja la eliminación de eventos (incluye trash)
+     */
+    public function handle_event_deletion(int $post_id): void
+    {
+        if (get_post_type($post_id) === 'evento') {
+            $this->clear_eventos_cache();
+        }
+    }
+
+    /**
+     * Maneja la restauración de eventos desde trash
+     */
+    public function handle_event_restoration(int $post_id): void
+    {
+        if (get_post_type($post_id) === 'evento') {
+            $this->clear_eventos_cache();
+        }
+    }
+
+    /**
      * Devuelve los próximos eventos.
      * Retorna un array con la data lista para la vista.
      * 
@@ -15,6 +60,14 @@ class EventosService
      */
     public function get_eventos_home(int $limit = 4): array
     {
+        // Intentar obtener desde cache primero
+        $cache_key = "viceunf_eventos_home_{$limit}";
+        $cached = get_transient($cache_key);
+        
+        if (false !== $cached) {
+            return $cached;
+        }
+
         $args = [
             'post_type'              => 'evento',
             'posts_per_page'         => max(1, $limit),
@@ -90,6 +143,9 @@ class EventosService
             }
             wp_reset_postdata();
         }
+
+        // Guardar en cache por 15 minutos
+        set_transient($cache_key, $eventos, 15 * MINUTE_IN_SECONDS);
 
         return $eventos;
     }

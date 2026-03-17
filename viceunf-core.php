@@ -40,6 +40,15 @@ spl_autoload_register(function (string $class): void {
     }
 });
 
+add_action('admin_init', function (): void {
+    $theme = wp_get_theme();
+    if ('wptheme-vice-unf' !== $theme->get_stylesheet() && 'wptheme-vice-unf' !== $theme->get_template()) {
+        add_action('admin_notices', function (): void {
+            echo '<div class="notice notice-warning is-dismissible"><p><strong>Advertencia:</strong> El plugin <em>ViceUnf Core</em> está diseñado para funcionar en conjunto con el tema <strong>ViceUnf</strong>. Ciertas funcionalidades del frontend podrían no mostrarse correctamente con el tema actual, pero tus datos están seguros.</p></div>';
+        });
+    }
+});
+
 /**
  * Bootstrap del Plugin (Contenedor / Registry simple)
  */
@@ -67,6 +76,12 @@ function viceunf_core_bootstrap(): void
     // 3. Registrar Hooks de Servicios
     $slider_service = new \ViceUnf\Core\Service\SliderService();
     $slider_service->register_hooks();
+
+    $eventos_service = new \ViceUnf\Core\Service\EventosService();
+    $eventos_service->register_hooks();
+
+    $socios_service = new \ViceUnf\Core\Service\SocioService();
+    $socios_service->register_hooks();
 
     // 4. Registrar MetaBoxes de CPTs
     $autoridad_metabox = new \ViceUnf\Core\MetaBox\AutoridadMetaBox();

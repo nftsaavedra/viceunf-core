@@ -1,0 +1,23 @@
+{
+  "name": "viceunf-plugin-build",
+  "version": "1.1.0",
+  "description": "Build system for ViceUnf Plugin production deployment",
+  "scripts": {
+    "build": "npm run clean && npm run optimize",
+    "clean": "rimraf build && mkdirp build",
+    "optimize": "npm run optimize:css && npm run optimize:js",
+    "optimize:css": "postcss assets/admin/*.css --dir build/assets/admin --use autoprefixer --use cssnano",
+    "optimize:js": "terser assets/admin/*.js --compress --mangle --output build/assets/admin_bundle.js",
+    "package": "cd build && cp -r ../src ../*.php ../*.txt . && zip -r ../viceunf-plugin-v1.1.0-prod.zip .",
+    "test:production": "php build/test-production.php"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "cssnano": "^6.0.1",
+    "mkdirp": "^3.0.1",
+    "postcss": "^8.4.31",
+    "postcss-cli": "^10.1.0",
+    "rimraf": "^5.0.5",
+    "terser": "^5.19.2"
+  }
+}
