@@ -83,6 +83,9 @@ function viceunf_core_bootstrap(): void
     $socios_service = new \ViceUnf\Core\Service\SocioService();
     $socios_service->register_hooks();
 
+    $post_service = new \ViceUnf\Core\Service\PostService();
+    $post_service->register_hooks();
+
     // 4. Registrar MetaBoxes de CPTs
     $autoridad_metabox = new \ViceUnf\Core\MetaBox\AutoridadMetaBox();
     $autoridad_metabox->register_hooks();
