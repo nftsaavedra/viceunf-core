@@ -44,7 +44,12 @@ class Ajax
      */
     private function ajax_search_posts(array $post_types): void
     {
-        check_ajax_referer('viceunf_ajax_nonce_action', 'nonce');
+        check_ajax_referer('viceunf-core-ajax-nonce', 'nonce');
+
+        if (! current_user_can('edit_posts')) {
+            wp_send_json_error('No tienes permisos suficientes para realizar esta acción.');
+            return;
+        }
 
         $search_term = isset($_POST['search']) ? sanitize_text_field($_POST['search']) : '';
 

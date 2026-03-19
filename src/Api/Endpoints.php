@@ -17,30 +17,30 @@ class Endpoints
     public function register_slider_fields(): void
     {
         $slider_fields = [
-            '_slider_subtitle_key',
-            '_slider_description_key',
-            '_slider_text_alignment_key',
-            '_slider_btn1_text_key',
-            '_slider_btn2_text_key',
-            '_slider_btn2_link_key',
-            '_slider_video_link_key',
-            '_slider_link_type_key',
-            '_slider_link_url_key',
-            '_slider_link_content_id_key',
+            '_slider_subtitle_key'        => 'string',
+            '_slider_description_key'     => 'string',
+            '_slider_text_alignment_key'  => 'string',
+            '_slider_btn1_text_key'       => 'string',
+            '_slider_btn2_text_key'       => 'string',
+            '_slider_btn2_link_key'       => 'string',
+            '_slider_video_link_key'      => 'string',
+            '_slider_link_type_key'       => 'string',
+            '_slider_link_url_key'        => 'string',
+            '_slider_link_content_id_key' => 'integer',
         ];
 
-        foreach ($slider_fields as $field) {
-            register_rest_field('slider', $field, [
-                'get_callback' => [$this, 'get_meta_value'],
-                'schema' => [
-                    'type'        => 'string',
-                    'description' => 'Meta data related to slider field: ' . $field,
-                    'context'     => ['view', 'edit'],
-                ],
+        foreach ($slider_fields as $meta_key => $type) {
+            register_post_meta('slider', $meta_key, [
+                'show_in_rest'      => true,
+                'single'            => true,
+                'type'              => $type,
+                'auth_callback'     => function () {
+                    return current_user_can('edit_posts');
+                },
             ]);
         }
 
-        // Campo "calculado" para el enlace final del botón 1
+        // Campo "calculado" para el enlace final del botón 1 permanece como rest_field
         register_rest_field('slider', 'btn1_final_href', [
             'get_callback' => [$this, 'get_slider_btn1_final_href'],
             'schema'       => [
@@ -51,7 +51,6 @@ class Endpoints
             ],
         ]);
 
-        // Exponemos la URL de la imagen destacada de forma explícita
         register_rest_field('slider', 'featured_image_url', [
             'get_callback' => function (array $object): string|bool {
                 if (! empty($object['featured_media'])) {
@@ -66,11 +65,6 @@ class Endpoints
                 'context'     => ['view', 'edit'],
             ],
         ]);
-    }
-
-    public function get_meta_value(array $object, string $field_name, \WP_REST_Request $request): mixed
-    {
-        return get_post_meta((int) $object['id'], $field_name, true);
     }
 
     public function get_slider_btn1_final_href(array $object, string $field_name, \WP_REST_Request $request): string
@@ -90,65 +84,45 @@ class Endpoints
 
     public function register_dependencia_fields(): void
     {
-        $string_fields = [
-            '_dependencia_resolucion',
-            '_dependencia_resolucion_source_type',
-            '_dependencia_resolucion_file_id',
-            '_dependencia_resolucion_external_url',
-            '_dependencia_siglas',
-            '_dependencia_correo',
-            '_dependencia_telefono',
-            '_dependencia_ubicacion',
-            '_dependencia_horario',
+        $fields = [
+            '_dependencia_resolucion'              => 'string',
+            '_dependencia_resolucion_source_type'  => 'string',
+            '_dependencia_resolucion_file_id'      => 'integer',
+            '_dependencia_resolucion_external_url' => 'string',
+            '_dependencia_siglas'                  => 'string',
+            '_dependencia_correo'                  => 'string',
+            '_dependencia_telefono'                => 'string',
+            '_dependencia_ubicacion'               => 'string',
+            '_dependencia_horario'                 => 'string',
+            '_dependencia_autoridad_id'            => 'integer',
         ];
 
-        foreach ($string_fields as $meta_key) {
+        foreach ($fields as $meta_key => $type) {
             register_post_meta('dependencia', $meta_key, [
                 'show_in_rest'      => true,
                 'single'            => true,
-                'type'              => 'string',
-                'sanitize_callback' => 'sanitize_text_field',
+                'type'              => $type,
                 'auth_callback'     => function () {
                     return current_user_can('edit_posts');
                 },
             ]);
         }
-
-        register_post_meta('dependencia', '_dependencia_autoridad_id', [
-            'show_in_rest'      => true,
-            'single'            => true,
-            'type'              => 'integer',
-            'sanitize_callback' => 'absint',
-            'auth_callback'     => function () {
-                return current_user_can('edit_posts');
-            },
-        ]);
     }
 
     public function register_autoridad_fields(): void
     {
-        $text_fields = ['_autoridad_grado', '_autoridad_correo'];
+        $fields = [
+            '_autoridad_grado'      => 'string',
+            '_autoridad_correo'     => 'string',
+            '_autoridad_orcid'      => 'string',
+            '_autoridad_cti_vitae'  => 'string',
+        ];
 
-        foreach ($text_fields as $meta_key) {
+        foreach ($fields as $meta_key => $type) {
             register_post_meta('autoridad', $meta_key, [
                 'show_in_rest'      => true,
                 'single'            => true,
-                'type'              => 'string',
-                'sanitize_callback' => 'sanitize_text_field',
-                'auth_callback'     => function () {
-                    return current_user_can('edit_posts');
-                },
-            ]);
-        }
-
-        $url_fields = ['_autoridad_orcid', '_autoridad_cti_vitae'];
-
-        foreach ($url_fields as $meta_key) {
-            register_post_meta('autoridad', $meta_key, [
-                'show_in_rest'      => true,
-                'single'            => true,
-                'type'              => 'string',
-                'sanitize_callback' => 'esc_url_raw',
+                'type'              => $type,
                 'auth_callback'     => function () {
                     return current_user_can('edit_posts');
                 },
