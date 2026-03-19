@@ -16,31 +16,46 @@ class Endpoints
 
     public function register_slider_fields(): void
     {
-        $slider_fields = [
-            '_slider_subtitle_key'        => 'string',
-            '_slider_description_key'     => 'string',
-            '_slider_text_alignment_key'  => 'string',
-            '_slider_btn1_text_key'       => 'string',
-            '_slider_btn2_text_key'       => 'string',
-            '_slider_btn2_link_key'       => 'string',
-            '_slider_video_link_key'      => 'string',
-            '_slider_link_type_key'       => 'string',
-            '_slider_link_url_key'        => 'string',
-            '_slider_link_content_id_key' => 'integer',
+        $slider_string_fields = [
+            '_slider_subtitle_key',
+            '_slider_description_key',
+            '_slider_text_alignment_key',
+            '_slider_btn1_text_key',
+            '_slider_btn2_text_key',
+            '_slider_link_type_key',
         ];
 
-        foreach ($slider_fields as $meta_key => $type) {
+        foreach ($slider_string_fields as $meta_key) {
             register_post_meta('slider', $meta_key, [
                 'show_in_rest'      => true,
                 'single'            => true,
-                'type'              => $type,
-                'auth_callback'     => function () {
-                    return current_user_can('edit_posts');
-                },
+                'type'              => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback'     => fn() => current_user_can('edit_posts'),
             ]);
         }
 
-        // Campo "calculado" para el enlace final del botón 1 permanece como rest_field
+        // Campos de URL — sanitización especializada
+        foreach (['_slider_btn2_link_key', '_slider_video_link_key', '_slider_link_url_key'] as $url_key) {
+            register_post_meta('slider', $url_key, [
+                'show_in_rest'      => true,
+                'single'            => true,
+                'type'              => 'string',
+                'sanitize_callback' => 'esc_url_raw',
+                'auth_callback'     => fn() => current_user_can('edit_posts'),
+            ]);
+        }
+
+        // Campo entero
+        register_post_meta('slider', '_slider_link_content_id_key', [
+            'show_in_rest'      => true,
+            'single'            => true,
+            'type'              => 'integer',
+            'sanitize_callback' => 'absint',
+            'auth_callback'     => fn() => current_user_can('edit_posts'),
+        ]);
+
+        // Campo calculado — enlace final btn1
         register_rest_field('slider', 'btn1_final_href', [
             'get_callback' => [$this, 'get_slider_btn1_final_href'],
             'schema'       => [
@@ -84,48 +99,83 @@ class Endpoints
 
     public function register_dependencia_fields(): void
     {
-        $fields = [
-            '_dependencia_resolucion'              => 'string',
-            '_dependencia_resolucion_source_type'  => 'string',
-            '_dependencia_resolucion_file_id'      => 'integer',
-            '_dependencia_resolucion_external_url' => 'string',
-            '_dependencia_siglas'                  => 'string',
-            '_dependencia_correo'                  => 'string',
-            '_dependencia_telefono'                => 'string',
-            '_dependencia_ubicacion'               => 'string',
-            '_dependencia_horario'                 => 'string',
-            '_dependencia_autoridad_id'            => 'integer',
+        // Strings genéricos
+        $string_fields = [
+            '_dependencia_resolucion',
+            '_dependencia_resolucion_source_type',
+            '_dependencia_siglas',
+            '_dependencia_telefono',
+            '_dependencia_ubicacion',
+            '_dependencia_horario',
         ];
-
-        foreach ($fields as $meta_key => $type) {
+        foreach ($string_fields as $meta_key) {
             register_post_meta('dependencia', $meta_key, [
                 'show_in_rest'      => true,
                 'single'            => true,
-                'type'              => $type,
-                'auth_callback'     => function () {
-                    return current_user_can('edit_posts');
-                },
+                'type'              => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+                'auth_callback'     => fn() => current_user_can('edit_posts'),
+            ]);
+        }
+
+        // URL externa — sanitización de URI
+        register_post_meta('dependencia', '_dependencia_resolucion_external_url', [
+            'show_in_rest'      => true,
+            'single'            => true,
+            'type'              => 'string',
+            'sanitize_callback' => 'esc_url_raw',
+            'auth_callback'     => fn() => current_user_can('edit_posts'),
+        ]);
+
+        // Email institucional
+        register_post_meta('dependencia', '_dependencia_correo', [
+            'show_in_rest'      => true,
+            'single'            => true,
+            'type'              => 'string',
+            'sanitize_callback' => 'sanitize_email',
+            'auth_callback'     => fn() => current_user_can('edit_posts'),
+        ]);
+
+        // Enteros — IDs de archivos y autoridades
+        foreach (['_dependencia_resolucion_file_id', '_dependencia_autoridad_id'] as $int_key) {
+            register_post_meta('dependencia', $int_key, [
+                'show_in_rest'      => true,
+                'single'            => true,
+                'type'              => 'integer',
+                'sanitize_callback' => 'absint',
+                'auth_callback'     => fn() => current_user_can('edit_posts'),
             ]);
         }
     }
 
     public function register_autoridad_fields(): void
     {
-        $fields = [
-            '_autoridad_grado'      => 'string',
-            '_autoridad_correo'     => 'string',
-            '_autoridad_orcid'      => 'string',
-            '_autoridad_cti_vitae'  => 'string',
-        ];
+        // Grado académico — texto plano
+        register_post_meta('autoridad', '_autoridad_grado', [
+            'show_in_rest'      => true,
+            'single'            => true,
+            'type'              => 'string',
+            'sanitize_callback' => 'sanitize_text_field',
+            'auth_callback'     => fn() => current_user_can('edit_posts'),
+        ]);
 
-        foreach ($fields as $meta_key => $type) {
-            register_post_meta('autoridad', $meta_key, [
+        // Email institucional
+        register_post_meta('autoridad', '_autoridad_correo', [
+            'show_in_rest'      => true,
+            'single'            => true,
+            'type'              => 'string',
+            'sanitize_callback' => 'sanitize_email',
+            'auth_callback'     => fn() => current_user_can('edit_posts'),
+        ]);
+
+        // URLs externas — ORCID y CTI Vitae
+        foreach (['_autoridad_orcid', '_autoridad_cti_vitae'] as $url_key) {
+            register_post_meta('autoridad', $url_key, [
                 'show_in_rest'      => true,
                 'single'            => true,
-                'type'              => $type,
-                'auth_callback'     => function () {
-                    return current_user_can('edit_posts');
-                },
+                'type'              => 'string',
+                'sanitize_callback' => 'esc_url_raw',
+                'auth_callback'     => fn() => current_user_can('edit_posts'),
             ]);
         }
     }

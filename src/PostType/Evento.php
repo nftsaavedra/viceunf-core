@@ -30,7 +30,7 @@ class Evento implements PostTypeInterface
             'label'              => __('Evento', 'viceunf-core'),
             'description'        => __('Contenido para la sección de eventos', 'viceunf-core'),
             'labels'             => $labels,
-            'supports'           => array('title', 'editor', 'thumbnail', 'excerpt', 'revisions'),
+            'supports'           => array('title', 'editor', 'thumbnail', 'excerpt', 'revisions', 'custom-fields'),
             'public'             => true,
             'show_ui'            => true,
             'show_in_menu'       => true,

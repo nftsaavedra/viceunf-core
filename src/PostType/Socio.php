@@ -40,7 +40,7 @@ class Socio implements PostTypeInterface
             'label'               => __('Socio', 'viceunf-core'),
             'description'         => __('Logos de Socios Académicos', 'viceunf-core'),
             'labels'              => $labels,
-            'supports'            => array('title', 'thumbnail', 'page-attributes'),
+            'supports'            => array('title', 'thumbnail', 'page-attributes', 'custom-fields'),
             'public'              => false,
             'show_ui'             => true,
             'show_in_menu'        => true,
