@@ -1,60 +1,37 @@
-# ViceUnf Plugin Build System
+# VpinUnf Core Plugin
 
-## 📦 Build Local para Plugin
+Plugin de dominio para el sitio web de la **Vice-Rectoría de Investigación de la UNF**.
 
-Este sistema de build está **DENTRO** de la carpeta del plugin, no afecta a la instalación completa.
+Registra la capa de datos del proyecto: Custom Post Types, Taxonomías, Endpoints REST API y Ajax.
 
-## 🚀 Uso
-
-### Instalación de dependencias:
-```bash
-cd wp-content/plugins/viceunf-core
-npm install
-```
-
-### Build para producción:
-```bash
-npm run build
-```
-
-### Comandos disponibles:
-```bash
-npm run clean          # Limpiar build/
-npm run optimize        # Optimizar assets
-npm run optimize:css    # Optimizar CSS
-npm run optimize:js     # Optimizar JS
-npm run package         # Crear ZIP
-npm run test:production # Tests de producción
-```
-
-## 📁 Estructura Generada
+## 📁 Estructura
 
 ```
-viceunf-core/
-├── build/                    # Archivos de producción
-│   ├── assets/admin/        # Assets optimizados
-│   ├── src/                 # Código fuente
-│   ├── viceunf-core.php    # Plugin principal
-│   ├── production-config.json # Config producción
-│   └── (demás archivos)
-├── viceunf-plugin-v1.1.0-prod.zip  # Paquete para deploy
-└── package.json             # Configuración del build
+vpinunf-core/
+├── src/
+│   ├── Api/            # Endpoints REST y Ajax handlers
+│   ├── MetaBox/        # MetaBoxes para cada CPT
+│   ├── PostType/       # Definición e interfaz de los CPTs
+│   └── Service/        # Servicios de consulta y caché
+├── assets/admin/       # CSS y JS del panel de administración
+└── vpinunf-core.php    # Bootstrap y autoloader del plugin
 ```
 
-## ✅ Optimizaciones Aplicadas
+## 🧩 Custom Post Types registrados
 
-- **CSS**: Minificación + Autoprefixer
-- **JS**: Compresión + Mangling
-- **PHP**: Limpieza de comentarios
-- **Config**: Producción habilitada
+- `slider` — Diapositivas del hero principal
+- `evento` — Eventos institucionales con horarios múltiples
+- `socio` — Socios estratégicos
+- `reglamento` — Documentos reglamentarios (PDF / enlace externo)
+- `autoridad` — Autoridades universitarias con datos académicos
+- `dependencia` — Dependencias y oficinas institucionales
 
-## 🎯 Deployment
+## 🔌 Requisitos
 
-1. Ejecutar `npm run build`
-2. Subir `viceunf-plugin-v1.1.0-prod.zip` vía WordPress Admin
-3. Activar plugin
-4. Configurar en Settings > Image Optimizer
+- WordPress 6.0+
+- PHP 8.1+
+- Tema activo: `wptheme-vice-unf`
 
 ---
 
-**Build system local y aislado - NO afecta otros componentes.**
+**Plugin de dominio puro — sin dependencias externas de Node.js ni Composer.**

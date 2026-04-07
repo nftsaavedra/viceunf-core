@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\PostType;
+namespace VpinUnf\Core\PostType;
 
 /**
  * Configuración del Custom Post Type: Reglamento
@@ -18,24 +18,24 @@ class Reglamento implements PostTypeInterface, HasTaxonomiesInterface
     public function get_args(): array
     {
         $labels = array(
-            'name'               => _x('Reglamentos', 'Post Type General Name', 'viceunf-core'),
-            'singular_name'      => _x('Reglamento', 'Post Type Singular Name', 'viceunf-core'),
-            'menu_name'          => __('Reglamentos', 'viceunf-core'),
-            'name_admin_bar'     => __('Reglamento', 'viceunf-core'),
-            'add_new_item'       => __('Añadir Nuevo Reglamento', 'viceunf-core'),
-            'add_new'            => __('Añadir Nuevo', 'viceunf-core'),
-            'new_item'           => __('Nuevo Reglamento', 'viceunf-core'),
-            'edit_item'          => __('Editar Reglamento', 'viceunf-core'),
-            'view_item'          => __('Ver Reglamento', 'viceunf-core'),
-            'all_items'          => __('Todos los Reglamentos', 'viceunf-core'),
-            'search_items'       => __('Buscar Reglamentos', 'viceunf-core'),
-            'not_found'          => __('No se encontraron reglamentos.', 'viceunf-core'),
-            'not_found_in_trash' => __('No se encontraron reglamentos en la papelera.', 'viceunf-core'),
+            'name'               => _x('Reglamentos', 'Post Type General Name', 'vpinunf-core'),
+            'singular_name'      => _x('Reglamento', 'Post Type Singular Name', 'vpinunf-core'),
+            'menu_name'          => __('Reglamentos', 'vpinunf-core'),
+            'name_admin_bar'     => __('Reglamento', 'vpinunf-core'),
+            'add_new_item'       => __('Añadir Nuevo Reglamento', 'vpinunf-core'),
+            'add_new'            => __('Añadir Nuevo', 'vpinunf-core'),
+            'new_item'           => __('Nuevo Reglamento', 'vpinunf-core'),
+            'edit_item'          => __('Editar Reglamento', 'vpinunf-core'),
+            'view_item'          => __('Ver Reglamento', 'vpinunf-core'),
+            'all_items'          => __('Todos los Reglamentos', 'vpinunf-core'),
+            'search_items'       => __('Buscar Reglamentos', 'vpinunf-core'),
+            'not_found'          => __('No se encontraron reglamentos.', 'vpinunf-core'),
+            'not_found_in_trash' => __('No se encontraron reglamentos en la papelera.', 'vpinunf-core'),
         );
 
         return array(
-            'label'               => __('Reglamento', 'viceunf-core'),
-            'description'         => __('Documentos normativos y reglamentos', 'viceunf-core'),
+            'label'               => __('Reglamento', 'vpinunf-core'),
+            'description'         => __('Documentos normativos y reglamentos', 'vpinunf-core'),
             'labels'              => $labels,
             'supports'            => array('title', 'revisions'),
             'public'              => true,
@@ -57,17 +57,17 @@ class Reglamento implements PostTypeInterface, HasTaxonomiesInterface
     public function register_taxonomies(): void
     {
         $labels = array(
-            'name'              => _x('Categorías de Reglamento', 'taxonomy general name', 'viceunf-core'),
-            'singular_name'     => _x('Categoría de Reglamento', 'taxonomy singular name', 'viceunf-core'),
-            'search_items'      => __('Buscar Categorías', 'viceunf-core'),
-            'all_items'         => __('Todas las Categorías', 'viceunf-core'),
-            'parent_item'       => __('Categoría Padre', 'viceunf-core'),
-            'parent_item_colon' => __('Categoría Padre:', 'viceunf-core'),
-            'edit_item'         => __('Editar Categoría', 'viceunf-core'),
-            'update_item'       => __('Actualizar Categoría', 'viceunf-core'),
-            'add_new_item'      => __('Añadir Nueva Categoría', 'viceunf-core'),
-            'new_item_name'     => __('Nombre de la Nueva Categoría', 'viceunf-core'),
-            'menu_name'         => __('Categorías', 'viceunf-core'),
+            'name'              => _x('Categorías de Reglamento', 'taxonomy general name', 'vpinunf-core'),
+            'singular_name'     => _x('Categoría de Reglamento', 'taxonomy singular name', 'vpinunf-core'),
+            'search_items'      => __('Buscar Categorías', 'vpinunf-core'),
+            'all_items'         => __('Todas las Categorías', 'vpinunf-core'),
+            'parent_item'       => __('Categoría Padre', 'vpinunf-core'),
+            'parent_item_colon' => __('Categoría Padre:', 'vpinunf-core'),
+            'edit_item'         => __('Editar Categoría', 'vpinunf-core'),
+            'update_item'       => __('Actualizar Categoría', 'vpinunf-core'),
+            'add_new_item'      => __('Añadir Nueva Categoría', 'vpinunf-core'),
+            'new_item_name'     => __('Nombre de la Nueva Categoría', 'vpinunf-core'),
+            'menu_name'         => __('Categorías', 'vpinunf-core'),
         );
 
         $args = array(

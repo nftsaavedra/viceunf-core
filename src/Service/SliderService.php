@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\Service;
+namespace VpinUnf\Core\Service;
 
 /**
  * Service: SliderService
@@ -23,7 +23,7 @@ class SliderService
      */
     public function get_front_sliders(int $limit = 5): \WP_Query
     {
-        $cache_key = 'viceunf_slider_query_cache_' . $limit;
+        $cache_key = 'vpinunf_slider_query_cache_' . $limit;
         $slider_query = get_transient($cache_key);
 
         if (false === $slider_query) {
@@ -50,6 +50,6 @@ class SliderService
      */
     public function clear_sliders_cache(): void
     {
-        delete_transient('viceunf_slider_query_cache_5');
+        delete_transient('vpinunf_slider_query_cache_5');
     }
 }

@@ -1,17 +1,17 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\Api;
+namespace VpinUnf\Core\Api;
 
 class Ajax
 {
     public function register_hooks(): void
     {
-        add_action('wp_ajax_viceunf_search_content',    [$this, 'search_content_handler']);
-        add_action('wp_ajax_viceunf_search_pages_only', [$this, 'search_pages_handler']);
-        add_action('wp_ajax_viceunf_search_autoridades', [$this, 'search_autoridades_handler']);
-        add_action('wp_ajax_viceunf_search_icons',      [$this, 'search_icons_handler']);
+        add_action('wp_ajax_vpinunf_search_content',    [$this, 'search_content_handler']);
+        add_action('wp_ajax_vpinunf_search_pages_only', [$this, 'search_pages_handler']);
+        add_action('wp_ajax_vpinunf_search_autoridades', [$this, 'search_autoridades_handler']);
+        add_action('wp_ajax_vpinunf_search_icons',      [$this, 'search_icons_handler']);
     }
 
     /**
@@ -44,7 +44,7 @@ class Ajax
      */
     public function search_icons_handler(): void
     {
-        check_ajax_referer('viceunf_ajax_nonce_action', 'nonce');
+        check_ajax_referer('vpinunf_ajax_nonce_action', 'nonce');
 
         if (! current_user_can('edit_posts')) {
             wp_send_json_error('Sin permisos.');
@@ -88,7 +88,7 @@ class Ajax
     private function ajax_search_posts(array $post_types): void
     {
         // NOTA: La acción del nonce debe coincidir con wp_create_nonce() en theme-functions/enqueue.php
-        check_ajax_referer('viceunf_ajax_nonce_action', 'nonce');
+        check_ajax_referer('vpinunf_ajax_nonce_action', 'nonce');
 
         if (! current_user_can('edit_posts')) {
             wp_send_json_error('No tienes permisos suficientes para realizar esta acción.');

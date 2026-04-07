@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\Service;
+namespace VpinUnf\Core\Service;
 
 /**
  * Service: SocioService
@@ -11,7 +11,7 @@ namespace ViceUnf\Core\Service;
  */
 class SocioService
 {
-    private const CACHE_KEY = 'viceunf_socios_all';
+    private const CACHE_KEY = 'vpinunf_socios_all';
     private const CACHE_DURATION = HOUR_IN_SECONDS; // 1 hora
 
     /**

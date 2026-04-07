@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\MetaBox;
+namespace VpinUnf\Core\MetaBox;
 
 /**
  * Gestiona los metadatos del CPT "Dependencia":
@@ -15,7 +15,7 @@ class DependenciaMetaBox extends AbstractMetaBox
     {
         $this->post_type      = 'dependencia';
         $this->meta_box_id    = 'dependencia_jefatura_metabox';
-        $this->meta_box_title = __('Jefatura, Designación y Datos Institucionales', 'viceunf-core');
+        $this->meta_box_title = __('Jefatura, Designación y Datos Institucionales', 'vpinunf-core');
         parent::__construct();
     }
 
@@ -27,12 +27,12 @@ class DependenciaMetaBox extends AbstractMetaBox
         }
 
         wp_enqueue_media();
-        wp_enqueue_style('viceunf-metabox-common-css', VICEUNF_CORE_URL . 'assets/admin/metabox-common.css', [], VICEUNF_CORE_VERSION);
+        wp_enqueue_style('vpinunf-metabox-common-css', VPINUNF_CORE_URL . 'assets/admin/metabox-common.css', [], VPINUNF_CORE_VERSION);
         wp_enqueue_script(
             'dependencia-metabox-js',
-            VICEUNF_CORE_URL . 'assets/admin/dependencia-metabox.js',
+            VPINUNF_CORE_URL . 'assets/admin/dependencia-metabox.js',
             [],
-            VICEUNF_CORE_VERSION,
+            VPINUNF_CORE_VERSION,
             true
         );
     }
@@ -60,14 +60,14 @@ class DependenciaMetaBox extends AbstractMetaBox
 
             <!-- SEC 1: Jefatura y Designación -->
             <div class="viceunf-metabox-section">
-                <h4 class="viceunf-metabox-subtitle"><?php _e('Jefatura y Designación', 'viceunf-core'); ?></h4>
+                <h4 class="viceunf-metabox-subtitle"><?php _e('Jefatura y Designación', 'vpinunf-core'); ?></h4>
 
                 <div class="viceunf-metabox-field">
                     <?php
                     $autoridad_title = $jefe_asignado_id ? get_the_title(absint($jefe_asignado_id)) : '';
                     ?>
-                    <label class="viceunf-metabox-label"><strong><?php _e('Autoridad a Cargo (Director / Jefe):', 'viceunf-core'); ?></strong></label>
-                    <div class="ajax-search-wrapper" data-action="viceunf_search_autoridades">
+                    <label class="viceunf-metabox-label"><strong><?php _e('Autoridad a Cargo (Director / Jefe):', 'vpinunf-core'); ?></strong></label>
+                    <div class="ajax-search-wrapper" data-action="vpinunf_search_autoridades">
                         <div class="selected-item-view <?php echo ($jefe_asignado_id ? 'active' : ''); ?>">
                             <span class="selected-item-title"><?php echo esc_html($autoridad_title); ?></span>
                             <button type="button" class="button-link-delete clear-selection-btn">&times;</button>
@@ -78,17 +78,17 @@ class DependenciaMetaBox extends AbstractMetaBox
                         </div>
                         <input type="hidden" class="ajax-search-hidden-id" id="dependencia_autoridad" name="dependencia_autoridad" value="<?php echo esc_attr((string)$jefe_asignado_id); ?>">
                     </div>
-                    <span class="viceunf-metabox-desc"><?php _e('Busque y seleccione la autoridad designada para dirigir esta dependencia. (búsqueda dinámica)', 'viceunf-core'); ?></span>
+                    <span class="viceunf-metabox-desc"><?php _e('Busque y seleccione la autoridad designada para dirigir esta dependencia. (búsqueda dinámica)', 'vpinunf-core'); ?></span>
                 </div>
 
                 <div class="viceunf-metabox-field">
-                    <label for="dependencia_resolucion" class="viceunf-metabox-label"><strong><?php _e('Resolución de Designación:', 'viceunf-core'); ?></strong></label>
+                    <label for="dependencia_resolucion" class="viceunf-metabox-label"><strong><?php _e('Resolución de Designación:', 'vpinunf-core'); ?></strong></label>
                     <input type="text" id="dependencia_resolucion" name="dependencia_resolucion" value="<?php echo esc_attr($resolucion); ?>" placeholder="RCU N° 123-2024-UNF" class="viceunf-metabox-input dt-w-100" />
-                    <span class="viceunf-metabox-desc"><?php _e('Nombre o número del documento legal vigente.', 'viceunf-core'); ?></span>
+                    <span class="viceunf-metabox-desc"><?php _e('Nombre o número del documento legal vigente.', 'vpinunf-core'); ?></span>
                 </div>
 
                 <div class="viceunf-metabox-field">
-                    <label class="viceunf-metabox-label"><strong><?php _e('Documento de Resolución (Archivo o Enlace):', 'viceunf-core'); ?></strong></label>
+                    <label class="viceunf-metabox-label"><strong><?php _e('Documento de Resolución (Archivo o Enlace):', 'vpinunf-core'); ?></strong></label>
 
                     <div class="viceunf-radio-tabs" style="margin-bottom: 10px;">
                         <input type="radio" id="res_source_upload" name="dependencia_resolucion_source_type" value="upload" <?php checked($source_type, 'upload'); ?>>
@@ -114,45 +114,45 @@ class DependenciaMetaBox extends AbstractMetaBox
                     <!-- EXTERNAL -->
                     <div id="dependencia-external-section" class="conditional-res-field" style="display:none;">
                         <input type="url" id="dependencia_resolucion_external_url" name="dependencia_resolucion_external_url" value="<?php echo esc_url($external_url); ?>" placeholder="https://busquedas.elperuano.pe/..." class="viceunf-metabox-input dt-w-100" />
-                        <span class="viceunf-metabox-desc"><?php _e('URL completa del documento externo (ej. Google Drive, portal institucional).', 'viceunf-core'); ?></span>
+                        <span class="viceunf-metabox-desc"><?php _e('URL completa del documento externo (ej. Google Drive, portal institucional).', 'vpinunf-core'); ?></span>
                     </div>
                 </div>
             </div>
 
             <!-- SEC 2: Datos Institucionales -->
             <div class="viceunf-metabox-section">
-                <h4 class="viceunf-metabox-subtitle"><?php _e('Datos Institucionales', 'viceunf-core'); ?></h4>
+                <h4 class="viceunf-metabox-subtitle"><?php _e('Datos Institucionales', 'vpinunf-core'); ?></h4>
 
                 <div class="viceunf-cols">
                     <div class="viceunf-meta-row">
-                        <label for="dependencia_siglas" class="viceunf-metabox-label"><?php _e('Siglas / Acrónimo:', 'viceunf-core'); ?></label>
+                        <label for="dependencia_siglas" class="viceunf-metabox-label"><?php _e('Siglas / Acrónimo:', 'vpinunf-core'); ?></label>
                         <input type="text" id="dependencia_siglas" name="dependencia_siglas" value="<?php echo esc_attr($siglas); ?>" placeholder="ej. VPIN, VRAC" class="viceunf-metabox-input dt-w-100" />
-                        <span class="viceunf-metabox-desc"><?php _e('Abreviatura oficial de la dependencia.', 'viceunf-core'); ?></span>
+                        <span class="viceunf-metabox-desc"><?php _e('Abreviatura oficial de la dependencia.', 'vpinunf-core'); ?></span>
                     </div>
                     <div class="viceunf-meta-row">
-                        <label for="dependencia_correo" class="viceunf-metabox-label"><?php _e('Correo Institucional:', 'viceunf-core'); ?></label>
+                        <label for="dependencia_correo" class="viceunf-metabox-label"><?php _e('Correo Institucional:', 'vpinunf-core'); ?></label>
                         <input type="email" id="dependencia_correo" name="dependencia_correo" value="<?php echo esc_attr($correo); ?>" placeholder="dependencia@unf.edu.pe" class="viceunf-metabox-input dt-w-100" />
-                        <span class="viceunf-metabox-desc"><?php _e('Email oficial de contacto de la dependencia.', 'viceunf-core'); ?></span>
+                        <span class="viceunf-metabox-desc"><?php _e('Email oficial de contacto de la dependencia.', 'vpinunf-core'); ?></span>
                     </div>
                 </div>
 
                 <div class="viceunf-cols">
                     <div class="viceunf-meta-row">
-                        <label for="dependencia_telefono" class="viceunf-metabox-label"><?php _e('Teléfono / Anexo:', 'viceunf-core'); ?></label>
+                        <label for="dependencia_telefono" class="viceunf-metabox-label"><?php _e('Teléfono / Anexo:', 'vpinunf-core'); ?></label>
                         <input type="text" id="dependencia_telefono" name="dependencia_telefono" value="<?php echo esc_attr($telefono); ?>" placeholder="Ej: (073) 123456 - Anexo 123" class="viceunf-metabox-input dt-w-100" />
-                        <span class="viceunf-metabox-desc"><?php _e('Número de contacto telefónico y/o anexo interno.', 'viceunf-core'); ?></span>
+                        <span class="viceunf-metabox-desc"><?php _e('Número de contacto telefónico y/o anexo interno.', 'vpinunf-core'); ?></span>
                     </div>
                     <div class="viceunf-meta-row">
-                        <label for="dependencia_ubicacion" class="viceunf-metabox-label"><?php _e('Ubicación / Oficina:', 'viceunf-core'); ?></label>
+                        <label for="dependencia_ubicacion" class="viceunf-metabox-label"><?php _e('Ubicación / Oficina:', 'vpinunf-core'); ?></label>
                         <input type="text" id="dependencia_ubicacion" name="dependencia_ubicacion" value="<?php echo esc_attr($ubicacion); ?>" placeholder="Ej: Pabellón Central, 2do Piso" class="viceunf-metabox-input dt-w-100" />
-                        <span class="viceunf-metabox-desc"><?php _e('Referencia física de la oficina dentro del campus.', 'viceunf-core'); ?></span>
+                        <span class="viceunf-metabox-desc"><?php _e('Referencia física de la oficina dentro del campus.', 'vpinunf-core'); ?></span>
                     </div>
                 </div>
 
                 <div class="viceunf-meta-row">
-                    <label for="dependencia_horario" class="viceunf-metabox-label"><?php _e('Horario de Atención:', 'viceunf-core'); ?></label>
+                    <label for="dependencia_horario" class="viceunf-metabox-label"><?php _e('Horario de Atención:', 'vpinunf-core'); ?></label>
                     <input type="text" id="dependencia_horario" name="dependencia_horario" value="<?php echo esc_attr($horario); ?>" placeholder="Lunes - Viernes: 8:00 am - 1:00 pm y 2:00 pm - 4:00 pm" class="viceunf-metabox-input dt-w-100" />
-                    <span class="viceunf-metabox-desc"><?php _e('Horario de atención al público de esta dependencia.', 'viceunf-core'); ?></span>
+                    <span class="viceunf-metabox-desc"><?php _e('Horario de atención al público de esta dependencia.', 'vpinunf-core'); ?></span>
                 </div>
 
             </div>

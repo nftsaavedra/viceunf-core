@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\Service;
+namespace VpinUnf\Core\Service;
 
 /**
  * Service: CarouselService

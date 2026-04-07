@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\PostType;
+namespace VpinUnf\Core\PostType;
 
 /**
  * Contrato opcional para CPTs que también registran taxonomías propias.

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\MetaBox;
+namespace VpinUnf\Core\MetaBox;
 
 /**
  * MetaBox para el CPT "Slider"
@@ -14,7 +14,7 @@ class SliderMetaBox extends AbstractMetaBox
     {
         $this->post_type      = 'slider';
         $this->meta_box_id    = 'slider_details_metabox';
-        $this->meta_box_title = __('Datos del Slider', 'viceunf-core');
+        $this->meta_box_title = __('Datos del Slider', 'vpinunf-core');
         parent::__construct();
     }
 
@@ -22,7 +22,7 @@ class SliderMetaBox extends AbstractMetaBox
     {
         global $post;
         if (($hook === 'post-new.php' || $hook === 'post.php') && $post && $post->post_type === $this->post_type) {
-            wp_enqueue_style('viceunf-metabox-common-css', VICEUNF_CORE_URL . 'assets/admin/metabox-common.css', [], VICEUNF_CORE_VERSION);
+            wp_enqueue_style('vpinunf-metabox-common-css', VPINUNF_CORE_URL . 'assets/admin/metabox-common.css', [], VPINUNF_CORE_VERSION);
         }
     }
 
@@ -85,7 +85,7 @@ class SliderMetaBox extends AbstractMetaBox
                     $link_content_title = $link_content_id ? get_the_title(absint($link_content_id)) : '';
                     ?>
                     <label class="viceunf-metabox-label">Buscar Entrada o Página</label>
-                    <div class="ajax-search-wrapper" data-action="viceunf_search_content">
+                    <div class="ajax-search-wrapper" data-action="vpinunf_search_content">
                         <div class="selected-item-view <?php echo ($link_content_id ? 'active' : ''); ?>">
                             <span class="selected-item-title"><?php echo esc_html($link_content_title); ?></span>
                             <button type="button" class="button-link-delete clear-selection-btn">&times;</button>

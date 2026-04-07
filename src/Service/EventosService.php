@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\Service;
+namespace VpinUnf\Core\Service;
 
 class EventosService
 {
@@ -17,7 +17,7 @@ class EventosService
         $common_limits = [2, 3, 4, 6, 8, 10];
         
         foreach ($common_limits as $limit) {
-            delete_transient("viceunf_eventos_home_{$limit}");
+            delete_transient("vpinunf_eventos_home_{$limit}");
         }
     }
 
@@ -61,7 +61,7 @@ class EventosService
     public function get_eventos_home(int $limit = 4): array
     {
         // Intentar obtener desde cache primero
-        $cache_key = "viceunf_eventos_home_{$limit}";
+        $cache_key = "vpinunf_eventos_home_{$limit}";
         $cached = get_transient($cache_key);
         
         if (false !== $cached) {
@@ -117,7 +117,7 @@ class EventosService
                     }
                 } catch (\Throwable $e) {
                     // Fail gracefully on date parsing errors to avoid white screen of death
-                    error_log('ViceUnf_Core EventosService Date Parse Error: ' . $e->getMessage());
+                    error_log('VpinUnf_Core EventosService Date Parse Error: ' . $e->getMessage());
                 }
 
                 $thumbnail_html = '';

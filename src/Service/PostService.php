@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\Service;
+namespace VpinUnf\Core\Service;
 
 /**
  * Service: PostService
@@ -11,7 +11,7 @@ namespace ViceUnf\Core\Service;
  */
 class PostService
 {
-    private const CACHE_KEY_PREFIX = 'viceunf_recent_posts_';
+    private const CACHE_KEY_PREFIX = 'vpinunf_recent_posts_';
     private const CACHE_DURATION = HOUR_IN_SECONDS; // 1 hora
 
     public function get_recent_posts(int $number_of_posts = 5, array $categories = []): \WP_Query
@@ -85,8 +85,8 @@ class PostService
     public function clear_posts_cache(): void
     {
         global $wpdb;
-        $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_transient\_viceunf\_recent\_posts\_%'");
-        $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_transient\_timeout\_viceunf\_recent\_posts\_%'");
+        $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_transient\_vpinunf\_recent\_posts\_%'");
+        $wpdb->query("DELETE FROM {$wpdb->options} WHERE option_name LIKE '\_transient\_timeout\_vpinunf\_recent\_posts\_%'");
     }
 
     public function register_hooks(): void

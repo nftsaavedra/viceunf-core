@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\PostType;
+namespace VpinUnf\Core\PostType;
 
 /**
  * Configuración del Custom Post Type: Evento
@@ -18,17 +18,17 @@ class Evento implements PostTypeInterface
     public function get_args(): array
     {
         $labels = array(
-            'name'          => _x('Eventos', 'Post Type General Name', 'viceunf-core'),
-            'singular_name' => _x('Evento', 'Post Type Singular Name', 'viceunf-core'),
-            'menu_name'     => __('Eventos', 'viceunf-core'),
-            'all_items'     => __('Todos los Eventos', 'viceunf-core'),
-            'add_new_item'  => __('Añadir Nuevo Evento', 'viceunf-core'),
-            'edit_item'     => __('Editar Evento', 'viceunf-core'),
+            'name'          => _x('Eventos', 'Post Type General Name', 'vpinunf-core'),
+            'singular_name' => _x('Evento', 'Post Type Singular Name', 'vpinunf-core'),
+            'menu_name'     => __('Eventos', 'vpinunf-core'),
+            'all_items'     => __('Todos los Eventos', 'vpinunf-core'),
+            'add_new_item'  => __('Añadir Nuevo Evento', 'vpinunf-core'),
+            'edit_item'     => __('Editar Evento', 'vpinunf-core'),
         );
 
         return array(
-            'label'              => __('Evento', 'viceunf-core'),
-            'description'        => __('Contenido para la sección de eventos', 'viceunf-core'),
+            'label'              => __('Evento', 'vpinunf-core'),
+            'description'        => __('Contenido para la sección de eventos', 'vpinunf-core'),
             'labels'             => $labels,
             'supports'           => array('title', 'editor', 'thumbnail', 'excerpt', 'revisions', 'custom-fields'),
             'public'             => true,

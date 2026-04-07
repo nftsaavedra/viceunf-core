@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\MetaBox;
+namespace VpinUnf\Core\MetaBox;
 
 /**
  * Gestión del archivo/enlace para el CPT "Reglamento".
@@ -14,7 +14,7 @@ class ReglamentoMetaBox extends AbstractMetaBox
     {
         $this->post_type      = 'reglamento';
         $this->meta_box_id    = 'reglamento_file_metabox';
-        $this->meta_box_title = __('Archivo del Reglamento (Obligatorio)', 'viceunf-core');
+        $this->meta_box_title = __('Archivo del Reglamento (Obligatorio)', 'vpinunf-core');
         parent::__construct();
     }
 
@@ -26,12 +26,12 @@ class ReglamentoMetaBox extends AbstractMetaBox
         }
 
         wp_enqueue_media();
-        wp_enqueue_style('viceunf-metabox-common-css', VICEUNF_CORE_URL . 'assets/admin/metabox-common.css', [], VICEUNF_CORE_VERSION);
+        wp_enqueue_style('vpinunf-metabox-common-css', VPINUNF_CORE_URL . 'assets/admin/metabox-common.css', [], VPINUNF_CORE_VERSION);
         wp_enqueue_script(
             'reglamento-metabox-js',
-            VICEUNF_CORE_URL . 'assets/admin/reglamento-metabox.js',
+            VPINUNF_CORE_URL . 'assets/admin/reglamento-metabox.js',
             [],
-            VICEUNF_CORE_VERSION,
+            VPINUNF_CORE_VERSION,
             true
         );
     }
@@ -47,7 +47,7 @@ class ReglamentoMetaBox extends AbstractMetaBox
         <div class="viceunf-metabox-wrapper">
             <div class="viceunf-metabox-section">
 
-                <h4 class="viceunf-metabox-subtitle"><?php _e('Fuente del Documento', 'viceunf-core'); ?></h4>
+                <h4 class="viceunf-metabox-subtitle"><?php _e('Fuente del Documento', 'vpinunf-core'); ?></h4>
 
                 <div id="reglamento-source-selector" class="viceunf-metabox-field viceunf-radio-tabs">
                     <input type="radio" id="source_upload" name="reglamento_source_type" value="upload" <?php checked($source_type, 'upload'); ?>>
@@ -58,7 +58,7 @@ class ReglamentoMetaBox extends AbstractMetaBox
                 </div>
 
                 <div id="reglamento-upload-section" class="viceunf-metabox-field conditional-field">
-                    <p class="viceunf-metabox-desc"><?php _e('Seleccione el archivo (PDF, Word, etc.) correspondiente a este reglamento.', 'viceunf-core'); ?></p>
+                    <p class="viceunf-metabox-desc"><?php _e('Seleccione el archivo (PDF, Word, etc.) correspondiente a este reglamento.', 'vpinunf-core'); ?></p>
                     <input type="hidden" id="reglamento_file_id" name="reglamento_file_id" value="<?php echo esc_attr((string)$file_id); ?>">
 
                     <div style="margin-bottom: 15px;">
@@ -73,9 +73,9 @@ class ReglamentoMetaBox extends AbstractMetaBox
                 </div>
 
                 <div id="reglamento-external-section" class="viceunf-metabox-field conditional-field" style="display:none;">
-                    <label for="reglamento_external_url" class="viceunf-metabox-label"><?php _e('Enlace Web Externo:', 'viceunf-core'); ?></label>
+                    <label for="reglamento_external_url" class="viceunf-metabox-label"><?php _e('Enlace Web Externo:', 'vpinunf-core'); ?></label>
                     <input type="url" id="reglamento_external_url" name="reglamento_external_url" value="<?php echo esc_url($external_url); ?>" placeholder="https://..." class="viceunf-metabox-input dt-w-100" />
-                    <span class="viceunf-metabox-desc" style="margin-top:5px; display:block;"><?php _e('Útil para reglamentos alojados en El Peruano, Google Drive, etc.', 'viceunf-core'); ?></span>
+                    <span class="viceunf-metabox-desc" style="margin-top:5px; display:block;"><?php _e('Útil para reglamentos alojados en El Peruano, Google Drive, etc.', 'vpinunf-core'); ?></span>
                 </div>
 
             </div>

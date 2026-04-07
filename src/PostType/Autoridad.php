@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\PostType;
+namespace VpinUnf\Core\PostType;
 
 /**
  * Configuración del Custom Post Type: Autoridad
@@ -18,27 +18,27 @@ class Autoridad implements PostTypeInterface
     public function get_args(): array
     {
         $labels = array(
-            'name'                  => _x('Autoridades', 'Post Type General Name', 'viceunf-core'),
-            'singular_name'         => _x('Autoridad', 'Post Type Singular Name', 'viceunf-core'),
-            'menu_name'             => __('Autoridades', 'viceunf-core'),
-            'name_admin_bar'        => __('Autoridad', 'viceunf-core'),
-            'add_new_item'          => __('Añadir Nueva Autoridad', 'viceunf-core'),
-            'add_new'               => __('Añadir Nueva', 'viceunf-core'),
-            'new_item'              => __('Nueva Autoridad', 'viceunf-core'),
-            'edit_item'             => __('Editar Autoridad', 'viceunf-core'),
-            'view_item'             => __('Ver Autoridad', 'viceunf-core'),
-            'all_items'             => __('Todas las Autoridades', 'viceunf-core'),
-            'search_items'          => __('Buscar Autoridades', 'viceunf-core'),
-            'not_found'             => __('No se encontraron autoridades.', 'viceunf-core'),
-            'not_found_in_trash'    => __('No se encontraron autoridades en la papelera.', 'viceunf-core'),
-            'featured_image'        => __('Fotografía de la Autoridad', 'viceunf-core'),
-            'set_featured_image'    => __('Establecer Fotografía', 'viceunf-core'),
-            'remove_featured_image' => __('Quitar Fotografía', 'viceunf-core'),
+            'name'                  => _x('Autoridades', 'Post Type General Name', 'vpinunf-core'),
+            'singular_name'         => _x('Autoridad', 'Post Type Singular Name', 'vpinunf-core'),
+            'menu_name'             => __('Autoridades', 'vpinunf-core'),
+            'name_admin_bar'        => __('Autoridad', 'vpinunf-core'),
+            'add_new_item'          => __('Añadir Nueva Autoridad', 'vpinunf-core'),
+            'add_new'               => __('Añadir Nueva', 'vpinunf-core'),
+            'new_item'              => __('Nueva Autoridad', 'vpinunf-core'),
+            'edit_item'             => __('Editar Autoridad', 'vpinunf-core'),
+            'view_item'             => __('Ver Autoridad', 'vpinunf-core'),
+            'all_items'             => __('Todas las Autoridades', 'vpinunf-core'),
+            'search_items'          => __('Buscar Autoridades', 'vpinunf-core'),
+            'not_found'             => __('No se encontraron autoridades.', 'vpinunf-core'),
+            'not_found_in_trash'    => __('No se encontraron autoridades en la papelera.', 'vpinunf-core'),
+            'featured_image'        => __('Fotografía de la Autoridad', 'vpinunf-core'),
+            'set_featured_image'    => __('Establecer Fotografía', 'vpinunf-core'),
+            'remove_featured_image' => __('Quitar Fotografía', 'vpinunf-core'),
         );
 
         return array(
-            'label'               => __('Autoridad', 'viceunf-core'),
-            'description'         => __('Autoridades y Personal Directivo Universitario', 'viceunf-core'),
+            'label'               => __('Autoridad', 'vpinunf-core'),
+            'description'         => __('Autoridades y Personal Directivo Universitario', 'vpinunf-core'),
             'labels'              => $labels,
             'supports'            => array('title', 'thumbnail', 'custom-fields'),
             'public'              => false, // Para no generar single.php directo nativo si se usará via bloque.

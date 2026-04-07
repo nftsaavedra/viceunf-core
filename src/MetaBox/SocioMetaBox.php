@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\MetaBox;
+namespace VpinUnf\Core\MetaBox;
 
 /**
  * MetaBox para el CPT "socio"
@@ -14,7 +14,7 @@ class SocioMetaBox extends AbstractMetaBox
     {
         $this->post_type      = 'socio';
         $this->meta_box_id    = 'socio_details_metabox';
-        $this->meta_box_title = __('Detalles del Socio', 'viceunf-core');
+        $this->meta_box_title = __('Detalles del Socio', 'vpinunf-core');
         parent::__construct();
     }
 
@@ -22,7 +22,7 @@ class SocioMetaBox extends AbstractMetaBox
     {
         global $post;
         if (($hook === 'post-new.php' || $hook === 'post.php') && $post && $post->post_type === $this->post_type) {
-            wp_enqueue_style('viceunf-metabox-common-css', VICEUNF_CORE_URL . 'assets/admin/metabox-common.css', [], VICEUNF_CORE_VERSION);
+            wp_enqueue_style('vpinunf-metabox-common-css', VPINUNF_CORE_URL . 'assets/admin/metabox-common.css', [], VPINUNF_CORE_VERSION);
         }
     }
 
@@ -33,7 +33,7 @@ class SocioMetaBox extends AbstractMetaBox
         <div class="viceunf-metabox-wrapper">
             <div class="viceunf-metabox-section">
                 <div class="viceunf-metabox-field">
-                    <label for="socio_url" class="viceunf-metabox-label"><?php _e('Enlace Web del Socio (Opcional)', 'viceunf-core'); ?></label>
+                    <label for="socio_url" class="viceunf-metabox-label"><?php _e('Enlace Web del Socio (Opcional)', 'vpinunf-core'); ?></label>
                     <input type="url" id="socio_url" name="socio_url" value="<?php echo esc_url((string)$socio_url); ?>" class="viceunf-metabox-input dt-w-100" placeholder="https://..." />
                 </div>
             </div>

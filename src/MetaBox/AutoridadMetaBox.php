@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\MetaBox;
+namespace VpinUnf\Core\MetaBox;
 
 /**
  * Gestiona la interfaz y persistencia de campos personalizados para el CPT "autoridad".
@@ -13,7 +13,7 @@ class AutoridadMetaBox extends AbstractMetaBox
     {
         $this->post_type      = 'autoridad';
         $this->meta_box_id    = 'autoridad_datos_personales_metabox';
-        $this->meta_box_title = __('Datos Profesionales e Institucionales', 'viceunf-core');
+        $this->meta_box_title = __('Datos Profesionales e Institucionales', 'vpinunf-core');
         parent::__construct();
     }
 
@@ -24,7 +24,7 @@ class AutoridadMetaBox extends AbstractMetaBox
             return;
         }
 
-        wp_enqueue_style('viceunf-metabox-common-css', VICEUNF_CORE_URL . 'assets/admin/metabox-common.css', [], VICEUNF_CORE_VERSION);
+        wp_enqueue_style('vpinunf-metabox-common-css', VPINUNF_CORE_URL . 'assets/admin/metabox-common.css', [], VPINUNF_CORE_VERSION);
     }
 
     protected function render_fields(\WP_Post $post): void
@@ -37,11 +37,11 @@ class AutoridadMetaBox extends AbstractMetaBox
         <div class="viceunf-metabox-wrapper">
             <div class="viceunf-metabox-section">
 
-                <h4 class="viceunf-metabox-subtitle"><?php _e('Grados y Filiación', 'viceunf-core'); ?></h4>
+                <h4 class="viceunf-metabox-subtitle"><?php _e('Grados y Filiación', 'vpinunf-core'); ?></h4>
                 <div class="viceunf-metabox-field">
-                    <label for="autoridad_grado" class="viceunf-metabox-label"><?php _e('Grado Académico:', 'viceunf-core'); ?></label>
+                    <label for="autoridad_grado" class="viceunf-metabox-label"><?php _e('Grado Académico:', 'vpinunf-core'); ?></label>
                     <select name="autoridad_grado" id="autoridad_grado" class="viceunf-metabox-input dt-w-100">
-                        <option value=""><?php _e('-- Seleccionar --', 'viceunf-core'); ?></option>
+                        <option value=""><?php _e('-- Seleccionar --', 'vpinunf-core'); ?></option>
                         <option value="Ph.D." <?php selected($grado_academico, 'Ph.D.'); ?>>Ph.D.</option>
                         <option value="Dr." <?php echo in_array($grado_academico, ['Dr.', 'Dra.']) ? 'selected="selected"' : ''; ?>>Doctor / Doctora (Dr. / Dra.)</option>
                         <option value="Mg." <?php echo in_array($grado_academico, ['Mg.', 'Mgtr.']) ? 'selected="selected"' : ''; ?>>Magíster (Mg. / Mgtr.)</option>
@@ -49,25 +49,25 @@ class AutoridadMetaBox extends AbstractMetaBox
                         <option value="Lic." <?php selected($grado_academico, 'Lic.'); ?>>Licenciado / Licenciada (Lic.)</option>
                         <option value="Bach." <?php selected($grado_academico, 'Bach.'); ?>>Bachiller (Bach.)</option>
                     </select>
-                    <span class="viceunf-metabox-desc"><?php _e('Seleccione el grado más alto alcanzado. El formato aplica normativas RAE inclusivas.', 'viceunf-core'); ?></span>
+                    <span class="viceunf-metabox-desc"><?php _e('Seleccione el grado más alto alcanzado. El formato aplica normativas RAE inclusivas.', 'vpinunf-core'); ?></span>
                 </div>
 
                 <div class="viceunf-metabox-field">
-                    <label for="autoridad_orcid" class="viceunf-metabox-label"><?php _e('Enlace ORCID:', 'viceunf-core'); ?></label>
+                    <label for="autoridad_orcid" class="viceunf-metabox-label"><?php _e('Enlace ORCID:', 'vpinunf-core'); ?></label>
                     <input type="url" id="autoridad_orcid" name="autoridad_orcid" value="<?php echo esc_url($orcid); ?>" placeholder="https://orcid.org/0000-0000-0000-0000" class="viceunf-metabox-input dt-w-100" />
-                    <span class="viceunf-metabox-desc"><?php _e('URL completa del perfil público de ORCID.', 'viceunf-core'); ?></span>
+                    <span class="viceunf-metabox-desc"><?php _e('URL completa del perfil público de ORCID.', 'vpinunf-core'); ?></span>
                 </div>
 
                 <div class="viceunf-metabox-field">
-                    <label for="autoridad_cti_vitae" class="viceunf-metabox-label"><?php _e('Enlace CTI Vitae (Concytec):', 'viceunf-core'); ?></label>
+                    <label for="autoridad_cti_vitae" class="viceunf-metabox-label"><?php _e('Enlace CTI Vitae (Concytec):', 'vpinunf-core'); ?></label>
                     <input type="url" id="autoridad_cti_vitae" name="autoridad_cti_vitae" value="<?php echo esc_url($cti_vitae); ?>" placeholder="https://ctivitae.concytec.gob.pe/..." class="viceunf-metabox-input dt-w-100" />
-                    <span class="viceunf-metabox-desc"><?php _e('Opcional. URL completa de la hoja de vida en CTI Vitae.', 'viceunf-core'); ?></span>
+                    <span class="viceunf-metabox-desc"><?php _e('Opcional. URL completa de la hoja de vida en CTI Vitae.', 'vpinunf-core'); ?></span>
                 </div>
 
                 <div class="viceunf-metabox-field">
-                    <label for="autoridad_correo" class="viceunf-metabox-label"><?php _e('Correo Electrónico Institucional:', 'viceunf-core'); ?></label>
+                    <label for="autoridad_correo" class="viceunf-metabox-label"><?php _e('Correo Electrónico Institucional:', 'vpinunf-core'); ?></label>
                     <input type="email" id="autoridad_correo" name="autoridad_correo" value="<?php echo esc_attr($correo); ?>" placeholder="ejemplo@unf.edu.pe" class="viceunf-metabox-input dt-w-100" />
-                    <span class="viceunf-metabox-desc"><?php _e('Este correo se mostrará públicamente.', 'viceunf-core'); ?></span>
+                    <span class="viceunf-metabox-desc"><?php _e('Este correo se mostrará públicamente.', 'vpinunf-core'); ?></span>
                 </div>
 
             </div>

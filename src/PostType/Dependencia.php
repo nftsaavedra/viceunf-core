@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\PostType;
+namespace VpinUnf\Core\PostType;
 
 /**
  * Configuración del Custom Post Type: Dependencia
@@ -18,26 +18,26 @@ class Dependencia implements PostTypeInterface
     public function get_args(): array
     {
         $labels = array(
-            'name'                  => _x('Dependencias', 'Post Type General Name', 'viceunf-core'),
-            'singular_name'         => _x('Dependencia', 'Post Type Singular Name', 'viceunf-core'),
-            'menu_name'             => __('Dependencias', 'viceunf-core'),
-            'name_admin_bar'        => __('Dependencia', 'viceunf-core'),
-            'parent_item_colon'     => __('Dependencia Superior (Padre):', 'viceunf-core'),
-            'all_items'             => __('Todas las Dependencias', 'viceunf-core'),
-            'add_new_item'          => __('Añadir Nueva Dependencia', 'viceunf-core'),
-            'add_new'               => __('Añadir Nueva', 'viceunf-core'),
-            'new_item'              => __('Nueva Dependencia', 'viceunf-core'),
-            'edit_item'             => __('Editar Dependencia', 'viceunf-core'),
-            'update_item'           => __('Actualizar Dependencia', 'viceunf-core'),
-            'view_item'             => __('Ver Dependencia', 'viceunf-core'),
-            'search_items'          => __('Buscar Dependencia', 'viceunf-core'),
-            'not_found'             => __('No se encontraron dependencias.', 'viceunf-core'),
-            'not_found_in_trash'    => __('No se encontraron dependencias en la papelera.', 'viceunf-core'),
+            'name'                  => _x('Dependencias', 'Post Type General Name', 'vpinunf-core'),
+            'singular_name'         => _x('Dependencia', 'Post Type Singular Name', 'vpinunf-core'),
+            'menu_name'             => __('Dependencias', 'vpinunf-core'),
+            'name_admin_bar'        => __('Dependencia', 'vpinunf-core'),
+            'parent_item_colon'     => __('Dependencia Superior (Padre):', 'vpinunf-core'),
+            'all_items'             => __('Todas las Dependencias', 'vpinunf-core'),
+            'add_new_item'          => __('Añadir Nueva Dependencia', 'vpinunf-core'),
+            'add_new'               => __('Añadir Nueva', 'vpinunf-core'),
+            'new_item'              => __('Nueva Dependencia', 'vpinunf-core'),
+            'edit_item'             => __('Editar Dependencia', 'vpinunf-core'),
+            'update_item'           => __('Actualizar Dependencia', 'vpinunf-core'),
+            'view_item'             => __('Ver Dependencia', 'vpinunf-core'),
+            'search_items'          => __('Buscar Dependencia', 'vpinunf-core'),
+            'not_found'             => __('No se encontraron dependencias.', 'vpinunf-core'),
+            'not_found_in_trash'    => __('No se encontraron dependencias en la papelera.', 'vpinunf-core'),
         );
 
         return array(
-            'label'               => __('Dependencia', 'viceunf-core'),
-            'description'         => __('Direcciones, Unidades y Oficinas Universitarias', 'viceunf-core'),
+            'label'               => __('Dependencia', 'vpinunf-core'),
+            'description'         => __('Direcciones, Unidades y Oficinas Universitarias', 'vpinunf-core'),
             'labels'              => $labels,
             'supports'            => array('title', 'thumbnail', 'page-attributes', 'custom-fields'),
             'hierarchical'        => true, // Permitir arbol (Padre - Hijo) -> Nivel 0 -> 1 -> 2

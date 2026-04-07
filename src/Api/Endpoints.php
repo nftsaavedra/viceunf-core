@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\Api;
+namespace VpinUnf\Core\Api;
 
 class Endpoints
 {

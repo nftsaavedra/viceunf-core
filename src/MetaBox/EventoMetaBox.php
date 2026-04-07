@@ -1,8 +1,8 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 
-namespace ViceUnf\Core\MetaBox;
+namespace VpinUnf\Core\MetaBox;
 
 /**
  * Clase EventoMetaBox
@@ -16,7 +16,7 @@ class EventoMetaBox extends AbstractMetaBox
     {
         $this->post_type      = 'evento';
         $this->meta_box_id    = 'evento_detalles_metabox';
-        $this->meta_box_title = __('Detalles y Horarios del Evento', 'viceunf-core');
+        $this->meta_box_title = __('Detalles y Horarios del Evento', 'vpinunf-core');
         parent::__construct();
     }
 
@@ -24,8 +24,8 @@ class EventoMetaBox extends AbstractMetaBox
     {
         global $post;
         if (($hook === 'post-new.php' || $hook === 'post.php') && $post && $post->post_type === $this->post_type) {
-            wp_enqueue_style('evento-metabox-css', VICEUNF_CORE_URL . 'assets/admin/evento-metabox.css', [], VICEUNF_CORE_VERSION);
-            wp_enqueue_script('evento-metabox-js', VICEUNF_CORE_URL . 'assets/admin/evento-metabox.js', [], VICEUNF_CORE_VERSION, true);
+            wp_enqueue_style('evento-metabox-css', VPINUNF_CORE_URL . 'assets/admin/evento-metabox.css', [], VPINUNF_CORE_VERSION);
+            wp_enqueue_script('evento-metabox-js', VPINUNF_CORE_URL . 'assets/admin/evento-metabox.js', [], VPINUNF_CORE_VERSION, true);
         }
     }
 
@@ -64,14 +64,14 @@ class EventoMetaBox extends AbstractMetaBox
         <div class="viceunf-metabox-wrapper">
             <!-- Ubicación General -->
             <div class="viceunf-metabox-section">
-                <h4 class="viceunf-metabox-subtitle"><?php _e('Ubicación General', 'viceunf-core'); ?></h4>
+                <h4 class="viceunf-metabox-subtitle"><?php _e('Ubicación General', 'vpinunf-core'); ?></h4>
                 <div style="display:flex; gap:20px; flex-wrap: wrap;">
                     <div class="viceunf-metabox-field" style="flex:1;">
-                        <label for="evento_lugar" class="viceunf-metabox-label"><?php _e('Lugar/Sede Principal:', 'viceunf-core'); ?></label>
+                        <label for="evento_lugar" class="viceunf-metabox-label"><?php _e('Lugar/Sede Principal:', 'vpinunf-core'); ?></label>
                         <input type="text" id="evento_lugar" name="evento_lugar" value="<?php echo esc_attr($lugar); ?>" placeholder="Ej: Auditorio Central UNF" class="viceunf-metabox-input dt-w-100" />
                     </div>
                     <div class="viceunf-metabox-field" style="flex:1;">
-                        <label for="evento_mapa_url" class="viceunf-metabox-label"><?php _e('URL Ubicación en Google Maps:', 'viceunf-core'); ?></label>
+                        <label for="evento_mapa_url" class="viceunf-metabox-label"><?php _e('URL Ubicación en Google Maps:', 'vpinunf-core'); ?></label>
                         <input type="url" id="evento_mapa_url" name="evento_mapa_url" value="<?php echo esc_url($mapa_url); ?>" placeholder="https://maps.google.com/..." class="viceunf-metabox-input dt-w-100" />
                     </div>
                 </div>
@@ -79,8 +79,8 @@ class EventoMetaBox extends AbstractMetaBox
 
             <!-- Generador de Horarios -->
             <div class="viceunf-metabox-section">
-                <h4 class="viceunf-metabox-subtitle"><?php _e('Jornadas y Horarios del Evento', 'viceunf-core'); ?></h4>
-                <p class="description viceunf-metabox-desc"><?php _e('Puede agregar múltiples fechas y horas para este evento (ej. ponencias de la mañana, ponencias de la tarde).', 'viceunf-core'); ?></p>
+                <h4 class="viceunf-metabox-subtitle"><?php _e('Jornadas y Horarios del Evento', 'vpinunf-core'); ?></h4>
+                <p class="description viceunf-metabox-desc"><?php _e('Puede agregar múltiples fechas y horas para este evento (ej. ponencias de la mañana, ponencias de la tarde).', 'vpinunf-core'); ?></p>
 
                 <div id="evento_horarios_container" class="viceunf-metabox-repeater">
                     <?php if (!empty($horarios)) : ?>
@@ -114,7 +114,7 @@ class EventoMetaBox extends AbstractMetaBox
 
                 <div style="margin-top: 15px;">
                     <button type="button" id="add_horario_btn" class="button button-primary">
-                        <?php _e('+ Añadir Nuevo Horario', 'viceunf-core'); ?>
+                        <?php _e('+ Añadir Nuevo Horario', 'vpinunf-core'); ?>
                     </button>
                 </div>
             </div>
