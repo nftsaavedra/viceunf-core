@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /**
  * Plugin Name: VpinUnf Core
@@ -9,8 +9,6 @@
  * License:     ISC
  * Text Domain: vpinunf-core
  */
-
-declare(strict_types=1);
 
 if (! defined('ABSPATH')) {
     exit;
@@ -42,7 +40,7 @@ spl_autoload_register(function (string $class): void {
 
 add_action('admin_init', function (): void {
     $theme = wp_get_theme();
-    if ('wptheme-vice-unf' !== $theme->get_stylesheet() && 'wptheme-vice-unf' !== $theme->get_template()) {
+    if ('vpinunf' !== $theme->get_stylesheet() && 'vpinunf' !== $theme->get_template()) {
         add_action('admin_notices', function (): void {
             echo '<div class="notice notice-warning is-dismissible"><p><strong>Advertencia:</strong> El plugin <em>VpinUnf Core</em> está diseñado para funcionar en conjunto con el tema <strong>VpinUnf</strong>. Ciertas funcionalidades del frontend podrían no mostrarse correctamente con el tema actual, pero tus datos están seguros.</p></div>';
         });

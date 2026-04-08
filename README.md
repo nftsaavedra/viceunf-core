@@ -30,7 +30,7 @@ vpinunf-core/
 
 - WordPress 6.0+
 - PHP 8.1+
-- Tema activo: `wptheme-vice-unf`
+- Tema activo: `vpinunf`
 
 ---
 

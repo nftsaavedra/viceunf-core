@@ -1,7 +1,4 @@
-﻿<?php
-
-declare(strict_types=1);
-
+<?php
 namespace VpinUnf\Core\Api;
 
 class Endpoints
