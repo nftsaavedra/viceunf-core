@@ -51,32 +51,40 @@ class DependenciaService
         $autoridad_id = get_post_meta($id, '_dependencia_autoridad_id', true);
         $autoridad = '';
         $image_url = '';
+        $icon_class = '';
         
         if (!empty($autoridad_id)) {
             $autoridad = get_the_title($autoridad_id);
-            // Primero intentar la foto de la autoridad
+            // Intentar cargar la foto de la autoridad
             $autoridad_thumb = get_the_post_thumbnail_url($autoridad_id, 'thumbnail');
             if ($autoridad_thumb) {
                 $image_url = $autoridad_thumb;
             }
         }
         
-        // Si no hay foto de autoridad, usar la de la dependencia
+        // Si no hay foto de autoridad, recuperar el icono institucional
         if (empty($image_url)) {
-            $dep_thumb = get_the_post_thumbnail_url($id, 'thumbnail');
-            if ($dep_thumb) {
-                $image_url = $dep_thumb;
+            $icono_guardado = get_post_meta($id, '_dependencia_icono', true);
+            if (!empty($icono_guardado)) {
+                $icon_class = $icono_guardado;
+            } else {
+                // Fallback por defecto si tampoco hay icono guardado
+                $icon_class = 'fas fa-sitemap';
             }
         }
         
+        $linked_page_id = get_post_meta($id, '_dependencia_page_id', true);
+        $permalink = $linked_page_id ? get_permalink(absint($linked_page_id)) : get_permalink($id);
+
         $node = [
-            'id'        => $id,
-            'title'     => $post->post_title,
-            'siglas'    => $siglas,
-            'autoridad' => $autoridad,
-            'image_url' => $image_url,
-            'permalink' => get_permalink($id),
-            'children'  => []
+            'id'         => $id,
+            'title'      => $post->post_title,
+            'siglas'     => $siglas,
+            'autoridad'  => $autoridad,
+            'image_url'  => $image_url,
+            'icon_class' => $icon_class,
+            'permalink'  => $permalink,
+            'children'   => []
         ];
         
         $children_posts = get_posts([

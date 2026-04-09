@@ -51,7 +51,7 @@ class DependenciaMetaBox extends AbstractMetaBox
         $telefono  = get_post_meta($post->ID, '_dependencia_telefono', true);
         $ubicacion = get_post_meta($post->ID, '_dependencia_ubicacion', true);
         $horario   = get_post_meta($post->ID, '_dependencia_horario', true);
-
+        $page_id   = get_post_meta($post->ID, '_dependencia_page_id', true);
 
 ?>
         <div class="viceunf-metabox-wrapper">
@@ -149,8 +149,45 @@ class DependenciaMetaBox extends AbstractMetaBox
 
                 <div class="viceunf-meta-row">
                     <label for="dependencia_horario" class="viceunf-metabox-label"><?php _e('Horario de Atención:', 'vpinunf-core'); ?></label>
-                    <input type="text" id="dependencia_horario" name="dependencia_horario" value="<?php echo esc_attr($horario); ?>" placeholder="Lunes - Viernes: 8:00 am - 1:00 pm y 2:00 pm - 4:00 pm" class="viceunf-metabox-input dt-w-100" />
+                    <input type="text" id="dependencia_horario" name="dependencia_horario" value="<?php echo esc_attr($horario); ?>" placeholder="Lunes - Viernes: 8:00 am - 1:00 pm" class="viceunf-metabox-input dt-w-100" />
                     <span class="viceunf-metabox-desc"><?php _e('Horario de atención al público de esta dependencia.', 'vpinunf-core'); ?></span>
+                </div>
+
+                <div class="viceunf-meta-row">
+                    <?php $icono = get_post_meta($post->ID, '_dependencia_icono', true); ?>
+                    <label class="viceunf-metabox-label"><strong><?php _e('Icono Institucional (Organigrama):', 'vpinunf-core'); ?></strong></label>
+                    <div class="ajax-icon-search-wrapper" data-action="viceunf_search_icons">
+                        <div class="selected-item-view <?php echo ($icono ? 'active' : ''); ?>">
+                            <i class="<?php echo esc_attr($icono); ?>" style="font-size:24px; margin-right:10px; vertical-align:middle;"></i>
+                           <span class="selected-item-title"><?php echo esc_html($icono); ?></span>
+                            <button type="button" class="button-link-delete clear-selection-btn">&times;</button>
+                        </div>
+                        <div class="search-input-view <?php echo ($icono ? '' : 'active'); ?>">
+                            <input type="text" class="viceunf-metabox-input dt-w-100 ajax-search-input" placeholder="Busca un icono por nombre (ej. university, users, book)...">
+                            <div class="ajax-search-results"></div>
+                        </div>
+                        <input type="hidden" class="ajax-search-hidden-id" id="dependencia_icono" name="dependencia_icono" value="<?php echo esc_attr((string)$icono); ?>">
+                    </div>
+                    <span class="viceunf-metabox-desc"><?php _e('Seleccione un ícono que represente a la dependencia. Este ícono se usará en organigramas si la Autoridad no tiene fotografía.', 'vpinunf-core'); ?></span>
+                </div>
+
+                <div class="viceunf-meta-row">
+                    <?php
+                    $page_title = $page_id ? get_the_title(absint($page_id)) : '';
+                    ?>
+                    <label class="viceunf-metabox-label"><strong><?php _e('Página Enlazada (Organigrama):', 'vpinunf-core'); ?></strong></label>
+                    <div class="ajax-search-wrapper" data-action="vpinunf_search_pages_only">
+                        <div class="selected-item-view <?php echo ($page_id ? 'active' : ''); ?>">
+                            <span class="selected-item-title"><?php echo esc_html($page_title); ?></span>
+                            <button type="button" class="button-link-delete clear-selection-btn">&times;</button>
+                        </div>
+                        <div class="search-input-view <?php echo ($page_id ? '' : 'active'); ?>">
+                            <input type="text" class="viceunf-metabox-input dt-w-100 ajax-search-input" placeholder="Escribe para buscar una página...">
+                            <div class="ajax-search-results"></div>
+                        </div>
+                        <input type="hidden" class="ajax-search-hidden-id" id="dependencia_page_id" name="dependencia_page_id" value="<?php echo esc_attr((string)$page_id); ?>">
+                    </div>
+                    <span class="viceunf-metabox-desc"><?php _e('Vincule una página interna para que la tarjeta del organigrama sea un enlace activo hacia ella.', 'vpinunf-core'); ?></span>
                 </div>
 
             </div>
@@ -210,6 +247,20 @@ class DependenciaMetaBox extends AbstractMetaBox
 
         if (isset($post_data['dependencia_horario'])) {
             update_post_meta($post_id, '_dependencia_horario', sanitize_text_field($post_data['dependencia_horario']));
+        }
+        
+        if (isset($post_data['dependencia_icono'])) {
+            update_post_meta($post_id, '_dependencia_icono', sanitize_text_field($post_data['dependencia_icono']));
+        }
+
+        // --- Página Enlazada (Organigrama) ---
+        if (isset($post_data['dependencia_page_id'])) {
+            $linked_page = absint($post_data['dependencia_page_id']);
+            if ($linked_page > 0) {
+                update_post_meta($post_id, '_dependencia_page_id', $linked_page);
+            } else {
+                delete_post_meta($post_id, '_dependencia_page_id');
+            }
         }
     }
 }
